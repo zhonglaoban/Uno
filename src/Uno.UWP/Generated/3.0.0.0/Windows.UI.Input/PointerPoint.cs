@@ -27,7 +27,7 @@ namespace Windows.UI.Input
 			}
 		}
 		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
+		#if false
 		[global::Uno.NotImplemented]
 		public  global::Windows.Devices.Input.PointerDevice PointerDevice
 		{

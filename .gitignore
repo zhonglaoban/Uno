@@ -243,3 +243,4 @@ msbuild.binlog
 *.diagsession
 
 /src/SourceGenerators/System.Xaml/obj-net_4_x-win32
+/src/crosstargeting_override.props

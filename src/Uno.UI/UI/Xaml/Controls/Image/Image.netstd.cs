@@ -80,9 +80,69 @@ namespace Windows.UI.Xaml.Controls
 			InvalidateArrange();
 		}
 
+		protected override Size ArrangeOverride(Size finalSize)
+		{
+			return base.ArrangeOverride(finalSize);
+		}
+
 		protected override Size MeasureOverride(Size availableSize)
 		{
-			return MeasureView(availableSize);
+			var measuredSize = MeasureView(availableSize);
+			Size ret;
+
+			switch (Stretch)
+			{
+				default:
+				case Stretch.None:
+					return measuredSize;
+
+				case Stretch.Fill:
+					if(
+						double.IsInfinity(availableSize.Width)
+						|| double.IsInfinity(availableSize.Height)
+					)
+					{
+						ret = measuredSize;
+					}
+					else
+					{
+						ret = availableSize;
+					}
+					break;
+
+				case Stretch.Uniform:
+					ret = measuredSize;
+					break;
+
+				case Stretch.UniformToFill:
+					if (
+						double.IsInfinity(availableSize.Width)
+						|| double.IsInfinity(availableSize.Height)
+					)
+					{
+						ret = measuredSize;
+					}
+					else
+					{
+						if(measuredSize.Width > measuredSize.Height)
+						{
+							var ratio = availableSize.Height / measuredSize.Height;
+
+							ret = new Size(measuredSize.Width * ratio, availableSize.Height);
+						}
+						else
+						{
+							var ratio = availableSize.Width / measuredSize.Width;
+
+							ret = new Size(availableSize.Width, measuredSize.Height * ratio);
+						}
+					}
+					break;
+			}
+
+			Console.WriteLine($"Image({Source?.WebUri}).MeasureOverride({availableSize}) = {measuredSize} -> {ret}");
+
+			return ret;
 		}
 
 		internal override bool IsViewHit()
