@@ -32,6 +32,10 @@ namespace Windows.UI.Xaml.Controls
 		// A version-dependent webView. WKWebView should be used where available (8.0+) to avoid memory leaks, UIWebView is used on older versions
 		private INativeWebView _nativeWebView;
 
+		public WebView()
+		{
+		}
+
 		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();

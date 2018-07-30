@@ -26,10 +26,6 @@ namespace Windows.UI.Xaml.Controls
 		private bool _isLoaded;
 		private string _invokeScriptResponse = string.Empty;
 
-		public WebView()
-		{
-		}
-
 		#region CanGoBack
 
 		public bool CanGoBack

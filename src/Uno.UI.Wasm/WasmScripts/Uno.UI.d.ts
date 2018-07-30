@@ -197,6 +197,8 @@ declare namespace Uno.UI {
         destroyView(viewId: string): string;
         getBoundingClientRect(elementId: string): string;
         getBBox(elementId: string): string;
+        setWebViewSource(elementId: string, sourceUri: string): string;
+        setWebViewHtmlString(elementId: string, htmlString: string): string;
         /**
             * Use the Html engine to measure the element using specified constraints.
             *

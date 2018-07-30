@@ -549,6 +549,43 @@
 			return `${bbox.x};${bbox.y};${bbox.width};${bbox.height}`;
 		}
 
+		public setWebViewSource(elementId: string, sourceUri: string): string {
+			const iframe = this.allActiveElementsById[elementId] as HTMLIFrameElement;
+			if (!iframe) {
+				throw `Element id ${elementId} not found.`;
+			}
+
+			iframe.src = sourceUri;
+
+			return "ok";
+		}
+
+		public setWebViewHtmlString(elementId: string, htmlString: string): string {
+			const iframe = this.allActiveElementsById[elementId] as HTMLIFrameElement;
+			if (!iframe) {
+				throw `Element id ${elementId} not found.`;
+			}
+
+			var iframedoc = null
+
+			if (iframe.contentDocument) {
+				iframedoc = iframe.contentDocument;
+			}
+			else if (iframe.contentWindow) {
+				iframedoc = iframe.contentWindow.document;
+			}
+
+			if (iframedoc) {
+				iframedoc.open();
+				iframedoc.writeln(htmlString);
+				iframedoc.close();
+			} else {
+				throw 'Cannot inject dynamic contents into iframe.';
+			}
+
+			return "ok";
+		}
+
 		/**
 			* Use the Html engine to measure the element using specified constraints.
 			*

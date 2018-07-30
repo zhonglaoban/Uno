@@ -26,6 +26,10 @@ namespace Windows.UI.Xaml.Controls
 	{
 		private Android.Webkit.WebView _webView;
 
+		public WebView()
+		{
+		}
+
 		protected override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
