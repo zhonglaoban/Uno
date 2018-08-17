@@ -9,34 +9,6 @@ namespace Windows.UI.Core
 	{
 		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
 		[global::Uno.NotImplemented]
-		public  global::Windows.Foundation.Point PointerPosition
-		{
-			get
-			{
-				throw new global::System.NotImplementedException("The member Point CoreWindow.PointerPosition is not implemented in Uno.");
-			}
-			set
-			{
-				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Core.CoreWindow", "Point CoreWindow.PointerPosition");
-			}
-		}
-		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || false
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Core.CoreCursor PointerCursor
-		{
-			get
-			{
-				throw new global::System.NotImplementedException("The member CoreCursor CoreWindow.PointerCursor is not implemented in Uno.");
-			}
-			set
-			{
-				global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Core.CoreWindow", "CoreCursor CoreWindow.PointerCursor");
-			}
-		}
-		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
-		[global::Uno.NotImplemented]
 		public  bool IsInputEnabled
 		{
 			get
@@ -147,20 +119,6 @@ namespace Windows.UI.Core
 		public  void Close()
 		{
 			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Core.CoreWindow", "void CoreWindow.Close()");
-		}
-		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Core.CoreVirtualKeyStates GetAsyncKeyState( global::Windows.System.VirtualKey virtualKey)
-		{
-			throw new global::System.NotImplementedException("The member CoreVirtualKeyStates CoreWindow.GetAsyncKeyState(VirtualKey virtualKey) is not implemented in Uno.");
-		}
-		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || false
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Core.CoreVirtualKeyStates GetKeyState( global::Windows.System.VirtualKey virtualKey)
-		{
-			throw new global::System.NotImplementedException("The member CoreVirtualKeyStates CoreWindow.GetKeyState(VirtualKey virtualKey) is not implemented in Uno.");
 		}
 		#endif
 		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
