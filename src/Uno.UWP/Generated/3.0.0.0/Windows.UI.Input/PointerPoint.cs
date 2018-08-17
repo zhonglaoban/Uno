@@ -17,7 +17,7 @@ namespace Windows.UI.Input
 			}
 		}
 		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || false
+		#if  false
 		[global::Uno.NotImplemented]
 		public  bool IsInContact
 		{
@@ -57,7 +57,7 @@ namespace Windows.UI.Input
 			}
 		}
 		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || false
+		#if false
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Input.PointerPointProperties Properties
 		{
