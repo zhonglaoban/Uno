@@ -936,15 +936,27 @@ namespace <#= mixin.NamespaceName #>
 			//If IsHitTestVisible is false, ignore children
 			if (!IsHitTestVisible || !IsEnabled)
 			{
+				if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+				{
+					this.Log().Debug($"[{GetType()}/{GetHashCode():X8}/{(((object)this) as FrameworkElement)?.Name}] HitTest = null IsHitTestVisible={IsHitTestVisible}, IsEnabled={IsEnabled}");
+				}
+
 				return null;
 			}
 
 			var viewHit = base.HitTest(point, uievent);
-
 			//Check for background
 			<# //TODO: This will not find HitCheckBackground if viewHit is not of the same type. HitCheckBackground should either be put on IFrameworkElement or, more likely, refactored out of existence. #>
-			var hitCheck = (viewHit as <#= mixin.ClassName #>)?.IsViewHit() ?? true;
-			return hitCheck ? viewHit : null;
+			var hitCheck = (viewHit as <#= mixin.ClassName #>)?.IsViewHit();
+
+			var ret = (hitCheck ?? true) ? viewHit : null;
+
+			if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+			{
+				this.Log().Debug($"[{GetType()}/{GetHashCode():X8}/{(((object)this) as FrameworkElement)?.Name}] HitTest = [{ret}/{ret?.GetHashCode():X8}]  hitCheck={hitCheck}");
+			}
+
+			return ret;
 		}
 
 

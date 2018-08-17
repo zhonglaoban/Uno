@@ -446,13 +446,28 @@ namespace Windows.UI.Xaml
 				PointerRoutedEventArgs args = null;
 				if (evt.IsTouchInView(this))
 				{
+
 					IsPointerPressed = true;
 					IsPointerOver = true;
 					OnPointerEnteredInternal(this, args = new PointerRoutedEventArgs(touches, evt));
 
+					var pointerEnteredHandled = args.Handled;
+
 					if (!args.Handled)
 					{
 						OnPointerPressedInternal(this, args = new PointerRoutedEventArgs(touches, evt));
+					}
+
+					if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+					{
+						this.Log().Debug($"[{GetType()}/{(((object)this) as FrameworkElement)?.Name}] TouchesBegan.InView pointerEnteredHandled={pointerEnteredHandled} args.Handled={args.Handled}");
+					}
+				}
+				else
+				{
+					if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
+					{
+						this.Log().Debug($"[{GetType()}/{(((object)this) as FrameworkElement)?.Name}] TouchesBegan.NotInView");
 					}
 				}
 
@@ -748,23 +763,45 @@ namespace Windows.UI.Xaml
 			{
 			}
 
-			internal void RaiseTapped(object sender, TappedRoutedEventArgs args) => Event?.Invoke(this, args);
+			internal void RaiseTapped(object sender, TappedRoutedEventArgs args)
+			{
+				Event?.Invoke(sender, args);
+
+				if (!args.Handled)
+				{
+					if (sender.GetParent() is UIElement parent)
+					{
+						parent.RaiseTapped(args);
+					}
+				}
+			}
 
 			protected override UIGestureRecognizer CreateRecognizer(UIElement owner)
 			{
 				var recognizer = new UITapGestureRecognizer(r =>
 				{
-					Event?.Invoke(owner, new TappedRoutedEventArgs(r.LocationInView(owner))
+					var args = new TappedRoutedEventArgs(r.LocationInView(owner))
 					{
 						OriginalSource = owner,
 						PointerDeviceType = PointerDeviceType.Touch,
-					});
+					};
+
+					RaiseTapped(owner, args);
 				})
 				{
 					NumberOfTapsRequired = 1,
 				};
 
-				recognizer.ShouldReceiveTouch += (_, touch) => (touch.View == owner);
+				recognizer.ShouldReceiveTouch += (_, touch) => {
+					var ret = touch.View == owner;
+
+					if (this.Log().IsEnabled(LogLevel.Debug))
+					{
+						this.Log().Debug($"ShouldReceiveTouch: {owner}=={touch.View} : {ret}");
+					}
+
+					return ret;
+				};
 
 				return recognizer;
 			}

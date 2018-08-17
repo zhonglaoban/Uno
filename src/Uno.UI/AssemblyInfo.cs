@@ -2,3 +2,4 @@
 
 [assembly: InternalsVisibleTo("Uno.UI.Tests")]
 [assembly: InternalsVisibleTo("Uno.UI.Tests.Performance")]
+
