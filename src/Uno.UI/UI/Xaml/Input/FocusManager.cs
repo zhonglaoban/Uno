@@ -60,7 +60,11 @@ namespace Windows.UI.Xaml.Input
 			}
 			else // Focused
 			{
-				(_focusedElement as Control)?.Unfocus();
+				if (ReferenceEquals(_focusedElement, control) && _focusedElement is Control previous)
+				{
+					previous.Unfocus();
+				}
+
 				_focusedElement = control;
 				_fallbackFocusedElement = control;
 
