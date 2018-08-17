@@ -33,8 +33,10 @@ namespace Windows.UI.Xaml.Input
 			}
 		}
 #elif __IOS__
-		internal Pointer(UIKit.UIEvent uiEvent)
+		internal Pointer(UIKit.UIEvent uiEvent, uint pointerId)
 		{
+			PointerId = pointerId;
+
 			switch (uiEvent.Type)
 			{
 				case UIKit.UIEventType.Touches:

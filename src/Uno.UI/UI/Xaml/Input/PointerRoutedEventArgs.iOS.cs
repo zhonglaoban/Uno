@@ -16,7 +16,7 @@ namespace Windows.UI.Xaml.Input
 		{
 			_nativeEvent = nativeEvent;
 			_nativeTouches = touches;
-			Pointer = new Pointer(nativeEvent);
+			Pointer = new Pointer(nativeEvent, 1);
 		}
 
 
