@@ -1,4 +1,6 @@
-﻿extern alias __ms;
+﻿#if !NETSTANDARD2_0
+extern alias __ms;
+#endif
 extern alias __uno;
 
 using System;
@@ -12,7 +14,9 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 		private XamlSchemaContext context;
 		private XamlXmlReaderSettings settings;
 
+#if !NETSTANDARD2_0
 		private __ms::System.Xaml.XamlXmlReader _systemReader;
+#endif
 		private __uno::Uno.Xaml.XamlXmlReader _unoReader;
 
 		public XamlXmlReader(XmlReader document, XamlSchemaContext context, XamlXmlReaderSettings settings)
@@ -25,14 +29,21 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 			{
 				_unoReader = new __uno::Uno.Xaml.XamlXmlReader(document, context.UnoInner, settings.UnoInner);
 			}
+#if !NETSTANDARD2_0
 			else
 			{
 				_systemReader = new __ms::System.Xaml.XamlXmlReader(document, context.MsInner, settings.MsInner);
 			}
+#endif
 		}
 
+#if !NETSTANDARD2_0
 		public XamlNodeType NodeType => XamlConfig.IsUnoXaml ? Convert(_unoReader.NodeType) : Convert(_systemReader.NodeType);
+#else
+		public XamlNodeType NodeType => Convert(_unoReader.NodeType);
+#endif
 
+#if !NETSTANDARD2_0
 		private XamlNodeType Convert(__ms::System.Xaml.XamlNodeType source)
 		{
 			switch (source)
@@ -56,6 +67,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 					return XamlNodeType.NamespaceDeclaration;
 			}
 		}
+#endif
 
 		private XamlNodeType Convert(__uno::Uno.Xaml.XamlNodeType source)
 		{
@@ -81,6 +93,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 			}
 		}
 
+#if !NETSTANDARD2_0
 		public object Value => XamlConfig.IsUnoXaml ? _unoReader.Value : _systemReader.Value;
 
 		public XamlType Type => XamlConfig.IsUnoXaml ? XamlType.FromType(_unoReader.Type) : XamlType.FromType(_systemReader.Type);
@@ -97,5 +110,23 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 		public void Dispose() => (XamlConfig.IsUnoXaml ? (IDisposable)_unoReader : _systemReader).Dispose();
 
 		internal bool Read() => XamlConfig.IsUnoXaml ? _unoReader.Read() : _systemReader.Read();
+#else
+		public object Value => _unoReader.Value;
+
+		public XamlType Type => XamlType.FromType(_unoReader.Type);
+
+		public int LineNumber => _unoReader.LineNumber;
+
+		public int LinePosition => _unoReader.LinePosition;
+
+		public XamlMember Member => XamlMember.FromMember(_unoReader.Member);
+
+		public NamespaceDeclaration Namespace 
+			=> new NamespaceDeclaration(_unoReader.Namespace);
+
+		public void Dispose() => (_unoReader as IDisposable).Dispose();
+
+		internal bool Read() => _unoReader.Read();
+#endif
 	}
 }

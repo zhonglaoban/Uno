@@ -10,7 +10,7 @@ using Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection;
 
 namespace Uno.UI.SourceGenerators.XamlGenerator
 {
-    internal class XamlFileDefinition
+    public class XamlFileDefinition
 	{
 		public XamlFileDefinition(string file)
 		{

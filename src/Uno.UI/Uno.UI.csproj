@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
 	<PropertyGroup>
-		<TargetFrameworks>MonoAndroid80;xamarinios10;net46;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net46;netstandard2.0</TargetFrameworks>
 		<TargetFrameworksCI>MonoAndroid71;MonoAndroid80;xamarinios10;net46;netstandard2.0</TargetFrameworksCI>
 	</PropertyGroup>
 
@@ -32,21 +32,9 @@
 
 	<ItemGroup>
 		<Compile Remove="Mixins\**\*.cs" />
-		<Compile Include="Mixins\Android\BaseActivity.Callbacks.g.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>BaseActivity.Callbacks.tt</DependentUpon>
-		</Compile>
-		<Compile Include="Mixins\Android\FrameworkElementMixins.g.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>FrameworkElementMixins.tt</DependentUpon>
-		</Compile>
-		<Compile Include="Mixins\Android\VisualStatesMixins.g.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>VisualStatesMixins.tt</DependentUpon>
-		</Compile>
+		<Compile Include="Mixins\Android\BaseActivity.Callbacks.g.cs" />
+		<Compile Include="Mixins\Android\FrameworkElementMixins.g.cs" />
+		<Compile Include="Mixins\Android\VisualStatesMixins.g.cs" />
 		<Compile Include="Mixins\DependencyPropertyMixins.g.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -277,7 +265,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<UnoUIGeneratorsBinPath>..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)</UnoUIGeneratorsBinPath>
+		<UnoUIGeneratorsBinPath>..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)\net46</UnoUIGeneratorsBinPath>
 	</PropertyGroup>
 
 	<Import Project="..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />

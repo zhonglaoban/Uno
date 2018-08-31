@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Uno.UI.SourceGenerators.XamlGenerator
 {
-    internal class XamlGlobalStaticResourcesMap
+	public class XamlGlobalStaticResourcesMap
 	{
 		private readonly Dictionary<string, List<StaticResourceDefinition>> _map = new Dictionary<string, List<StaticResourceDefinition>>();
 

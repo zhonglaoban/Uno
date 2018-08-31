@@ -1,4 +1,6 @@
-﻿extern alias __ms;
+﻿#if !NETSTANDARD2_0
+extern alias __ms;
+#endif
 extern alias __uno;
 
 using System.Collections.Generic;
@@ -13,13 +15,15 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 		private XamlSchemaContext xamlSchemaContext;
 		private bool _isUnknown;
 
+#if !NETSTANDARD2_0
 		private __ms::System.Xaml.XamlType _msDeclaringType;
+		public static XamlType FromType(__ms::System.Xaml.XamlType declaringType) => declaringType != null ? new XamlType(declaringType) : null;
+		private XamlType(__ms::System.Xaml.XamlType declaringType) => this._msDeclaringType = declaringType;
+#endif
+
 		private __uno::Uno.Xaml.XamlType _unoDeclaringType;
 
-		public static XamlType FromType(__ms::System.Xaml.XamlType declaringType) => declaringType != null ? new XamlType(declaringType) : null;
 		public static XamlType FromType(__uno::Uno.Xaml.XamlType declaringType) => declaringType != null ? new XamlType(declaringType) : null;
-
-		private XamlType(__ms::System.Xaml.XamlType declaringType) => this._msDeclaringType = declaringType;
 		private XamlType(__uno::Uno.Xaml.XamlType declaringType) => this._unoDeclaringType = declaringType;
 
 		public XamlType(string unknownTypeNamespace, string unknownTypeName, List<XamlType> list, XamlSchemaContext xamlSchemaContext)
@@ -31,6 +35,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 			_isUnknown = true;
 		}
 
+#if !NETSTANDARD2_0
 		public string Name
 			=> _isUnknown ? unknownTypeName : XamlConfig.IsUnoXaml ? _unoDeclaringType.Name : _msDeclaringType.Name;
 
@@ -38,5 +43,12 @@ namespace Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection
 			=> _isUnknown ? unknownTypeNamespace : XamlConfig.IsUnoXaml ? _unoDeclaringType.PreferredXamlNamespace : _msDeclaringType.PreferredXamlNamespace;
 
 		public override string ToString() => XamlConfig.IsUnoXaml ? _unoDeclaringType.ToString() : _msDeclaringType.ToString();
+#else
+		public string Name => _isUnknown ? unknownTypeName :_unoDeclaringType.Name;
+
+		public string PreferredXamlNamespace => _isUnknown ? unknownTypeNamespace : _unoDeclaringType.PreferredXamlNamespace;
+
+		public override string ToString() => _unoDeclaringType.ToString();
+#endif
 	}
 }

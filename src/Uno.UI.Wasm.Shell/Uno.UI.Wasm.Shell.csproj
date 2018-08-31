@@ -12,6 +12,7 @@
 	</ItemGroup> 
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis" Version="2.3.1" />
 		<PackageReference Include="Uno.SourceGenerationTasks">
 			<Version>1.22.0-dev.49</Version>
 			<NoWarn>NU1701</NoWarn>
@@ -24,6 +25,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\SourceGenerators\Uno.UI.SourceGenerators\Uno.UI.SourceGenerators.csproj" />
 		<ProjectReference Include="..\Uno.Foundation\Uno.Foundation.csproj" />
 		<ProjectReference Include="..\Uno.UI\Uno.UI.csproj" />
 		<ProjectReference Include="..\Uno.UWP\Uno.csproj" />
@@ -43,7 +45,7 @@
 	</ItemGroup>
 	
 	<PropertyGroup>
-		<UnoUIGeneratorsBinPath>..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)</UnoUIGeneratorsBinPath>
+		<UnoUIGeneratorsBinPath>..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)\net46</UnoUIGeneratorsBinPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

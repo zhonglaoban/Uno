@@ -13,7 +13,6 @@ using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Uno.Roslyn;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
-using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Formatting;
 using System.Threading;
@@ -23,7 +22,7 @@ using Uno.UI.SourceGenerators.XamlGenerator.XamlRedirection;
 
 namespace Uno.UI.SourceGenerators.XamlGenerator
 {
-    internal class XamlFileGenerator
+    public class XamlFileGenerator
     {
         private const string ImplicitStyleMarker = "__ImplicitStyle_";
         private const string GlobalPrefix = "global::";
@@ -405,7 +404,10 @@ namespace Uno.UI.SourceGenerators.XamlGenerator
 
         private static string ReformatCode(string generatedCode)
         {
-            using (var workspace = MSBuildWorkspace.Create())
+#if NETSTANDARD2_0
+			return generatedCode;
+#else
+			using (var workspace = Microsoft.CodeAnalysis.MSBuild.MSBuildWorkspace.Create())
             {
                 var syntaxTree = CSharpSyntaxTree.ParseText(generatedCode);
 
@@ -440,7 +442,8 @@ namespace Uno.UI.SourceGenerators.XamlGenerator
 
                 return formatted.ToFullString();
             }
-        }
+#endif
+		}
 
         private void BuildPartials(IIndentedStringBuilder writer, bool isStatic)
         {
