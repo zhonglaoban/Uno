@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <DefineConstants>$(DefineConstants);__WASM__</DefineConstants>
+	  <WasmHead>true</WasmHead>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\SourceGenerators\System.Xaml\Uno.Xaml.csproj" />
+	  <ProjectReference Include="..\Uno.Foundation\Uno.Foundation.csproj" />
+		<ProjectReference Include="..\Uno.UI.Wasm\Uno.UI.Wasm.csproj" />
+    <ProjectReference Include="..\Uno.UI\Uno.UI.csproj" />
+    <ProjectReference Include="..\Uno.UWP\Uno.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Uno.SourceGenerationTasks">
+			<Version>1.25.0-dev.72</Version>
+			<NoWarn>NU1701</NoWarn>
+		</PackageReference>
+		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.40" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Filter" Version="1.1.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'!='net46'">
+		<None Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+
+		<!-- remove files included by msbuild extras -->
+		<Page Remove="@(Page)" />
+		<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+	</ItemGroup>
+
+	<Import Project="..\Sample.Shared\Sample.Shared.projitems" Label="Shared" />
+
+	<PropertyGroup>
+		<UnoUIGeneratorsBinPath>..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)</UnoUIGeneratorsBinPath>
+	</PropertyGroup>
+
+	<Import Project="..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />
+
+</Project>
