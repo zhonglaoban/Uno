@@ -54,8 +54,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
-		<Reference Include="System.Numerics" />
-		<Reference Include="Mono.Android.Export" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="Mono.Android.Export" />
+    <Reference Include="Mono.Security" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
