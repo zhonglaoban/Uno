@@ -119,14 +119,23 @@ namespace Windows.UI.Xaml.Media.Animation
 
 		private void Play()
 		{
-			if (this.Children != null)
+			try
 			{
-				foreach (ITimeline child in this.Children)
+				if (this.Children != null)
 				{
-					_runningChildren++;
-					child.Completed += Child_Completed;
-					child.Begin();
+					Console.WriteLine($"Storyboard -- starting {this.Children.Count.ToString()} children");
+					foreach (ITimeline child in this.Children)
+					{
+						_runningChildren++;
+						child.Completed += Child_Completed;
+						child.Begin();
+					}
 				}
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine($"Storyboard -- an error occurred starting children: {ex.ToString()}");
+
 			}
 		}
 

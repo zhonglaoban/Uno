@@ -41,6 +41,7 @@ namespace Windows.UI.Xaml.Media.Animation
 		bool _wasBeginScheduled = false;
 		void ITimeline.Begin()
 		{
+			Console.WriteLine($"Starting double animation using keyframe -- {Target?.ToString() ?? "null"}");
 			if (!_wasBeginScheduled)
 			{
 				// We dispatch the begin so that we can use bindings on DoubleKeyFrame.Value from RelativeParent.
@@ -317,6 +318,7 @@ namespace Windows.UI.Xaml.Media.Animation
 				ClearValue();
 			}
 
+			Console.WriteLine($"Finishing double animation using keyframe -- {Target?.ToString() ?? "null"}");
 			OnCompleted();
 		}
 		

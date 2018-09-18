@@ -16,6 +16,10 @@ namespace Windows.UI.Xaml
 		/// </summary>
 		Animations,
 
+		StoryBoard,
+
+		AnimationsInactive,
+
 		/// <summary>
 		/// Values set directly on the Dependency Object
 		/// </summary>

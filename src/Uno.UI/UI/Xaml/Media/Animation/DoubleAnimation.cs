@@ -83,6 +83,7 @@ namespace Windows.UI.Xaml.Media.Animation
 
 		void ITimeline.Begin()
 		{
+			Console.WriteLine($"Beginning double animation -- {Target?.ToString() ?? "null"} -- { (Target as IFrameworkElement)?.Name ?? ""}");
 			if (_trace.IsEnabled)
 			{
 				_traceActivity = _trace.WriteEventActivity(
@@ -351,6 +352,7 @@ namespace Windows.UI.Xaml.Media.Animation
 				ClearValue();
 			}
 
+			Console.WriteLine($"Ending double animation -- {Target?.ToString() ?? "null"} -- { (Target as IFrameworkElement)?.Name ?? ""}");
 			OnCompleted();
 		}
 
@@ -362,6 +364,7 @@ namespace Windows.UI.Xaml.Media.Animation
 			if (this.Log().IsEnabled(Microsoft.Extensions.Logging.LogLevel.Debug))
 			{
 				this.Log().Debug("DoubleAnimation was cancelled.");
+				Console.WriteLine($"Cancelling double animation -- {Target?.ToString() ?? "null"} -- { (Target as IFrameworkElement)?.Name ?? ""}");
 			}
 
 			// Means the animation is stopped because the animator was cancelled.
