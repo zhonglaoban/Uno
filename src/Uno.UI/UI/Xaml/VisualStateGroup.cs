@@ -172,8 +172,6 @@ namespace Windows.UI.Xaml
 				this.Log().DebugFormat("Go to state [{0}/{1}] on [{2}]", Name, state?.Name, element);
 			}
 
-			IEnumerable<Setter> oldStateSetters = new List<Setter>();
-
 			var transition = FindTransition(originalState?.Name, state?.Name);
 
 			EventHandler<object> onComplete = null;
@@ -197,7 +195,7 @@ namespace Windows.UI.Xaml
 				if (transition?.Storyboard != null && useTransitions)
 				{
 					Log("Applying state setters after transition");
-					ApplyCurrentStateSetters(element, oldStateSetters);
+					ApplyCurrentStateSetters(element, originalState.Setters.OfType<Setter>());
 				}
 
 				if (transition?.Storyboard != null && useTransitions)
@@ -239,9 +237,6 @@ namespace Windows.UI.Xaml
 					{
 						originalState.Storyboard.Stop();
 					}
-				}
-
-				oldStateSetters = this.CurrentState.Setters.OfType<Setter>().ToList();
 			}
 
 			this.CurrentState = state;
@@ -249,7 +244,7 @@ namespace Windows.UI.Xaml
 			if (transition?.Storyboard == null || !useTransitions)
 			{
 				Log("Applying state setters right away because of no storyboard/transitions");
-				ApplyCurrentStateSetters(element, oldStateSetters);
+				ApplyCurrentStateSetters(element, originalState.Setters.OfType<Setter>());
 				onTransitionComplete(this, null);
 			}
 			else
