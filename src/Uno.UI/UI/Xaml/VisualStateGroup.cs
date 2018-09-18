@@ -172,6 +172,8 @@ namespace Windows.UI.Xaml
 				this.Log().DebugFormat("Go to state [{0}/{1}] on [{2}]", Name, state?.Name, element);
 			}
 
+			IEnumerable<Setter> oldStateSetters = new List<Setter>();
+
 			var transition = FindTransition(originalState?.Name, state?.Name);
 
 			EventHandler<object> onComplete = null;
@@ -192,6 +194,12 @@ namespace Windows.UI.Xaml
 
 			onTransitionComplete = (s, a) =>
 			{
+				if (transition?.Storyboard != null && useTransitions)
+				{
+					Log("Applying state setters after transition");
+					ApplyCurrentStateSetters(element, oldStateSetters);
+				}
+
 				if (transition?.Storyboard != null && useTransitions)
 				{
 					transition.Storyboard.Completed -= onTransitionComplete;
@@ -233,29 +241,47 @@ namespace Windows.UI.Xaml
 					}
 				}
 
-				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
-				{
-					setter.ClearValue();
-				}
+				oldStateSetters = this.CurrentState.Setters.OfType<Setter>().ToList();
 			}
 
 			this.CurrentState = state;
+			
+			if (transition?.Storyboard == null || !useTransitions)
+			{
+				Log("Applying state setters right away because of no storyboard/transitions");
+				ApplyCurrentStateSetters(element, oldStateSetters);
+				onTransitionComplete(this, null);
+			}
+			else
+			{
+				Log("Delaying state setters until transition is complete");
+				transition.Storyboard.Completed += onTransitionComplete;
+				transition.Storyboard.Begin();
+			}
+		}
+
+		private void ApplyCurrentStateSetters(IFrameworkElement element, IEnumerable<Setter> oldSetters)
+		{
+			foreach(var setter in oldSetters)
+			{
+				setter.ClearValue();
+			}
+
 			if (this.CurrentState != null)
 			{
 				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
 				{
 					setter.ApplyValue(DependencyPropertyValuePrecedences.Animations, element);
+					Log($"Applying setter: TargetName= {setter.Target?.TargetName?.ToString() ?? "null"} - Target= {setter.Target?.Target?.ToString() ?? "null"} to element: {element.ToString()}");
 				}
 			}
+		}
 
-			if (transition?.Storyboard == null || !useTransitions)
+		private void Log(string s)
+		{
+			if (Name == "CustomStates")
 			{
-				onTransitionComplete(this, null);
-			}
-			else
-			{
-				transition.Storyboard.Completed += onTransitionComplete;
-				transition.Storyboard.Begin();
+				Console.WriteLine(Name + " ----- " + s);
 			}
 		}
 
