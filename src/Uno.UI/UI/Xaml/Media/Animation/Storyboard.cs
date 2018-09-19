@@ -123,7 +123,7 @@ namespace Windows.UI.Xaml.Media.Animation
 			{
 				if (this.Children != null)
 				{
-					Console.WriteLine($"Storyboard -- starting {this.Children.Count.ToString()} children");
+					Log($"Starting {this.Children.Count.ToString()} children");
 					foreach (ITimeline child in this.Children)
 					{
 						_runningChildren++;
@@ -134,9 +134,14 @@ namespace Windows.UI.Xaml.Media.Animation
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine($"Storyboard -- an error occurred starting children: {ex.ToString()}");
+				Log($"An error occurred starting children: {ex.ToString()}");
 
 			}
+		}
+
+		private void Log(string message)
+		{
+			Console.WriteLine($"Storyboard -- {message}");
 		}
 
 		public void Stop()

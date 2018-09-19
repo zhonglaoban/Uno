@@ -267,8 +267,8 @@ namespace Windows.UI.Xaml
 			{
 				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
 				{
-					setter.ApplyValue(DependencyPropertyValuePrecedences.StoryBoard, element);
-					Log($"Applying setter: TargetName= {setter.Target?.TargetName?.ToString() ?? "null"} - Target= {setter.Target?.Target?.ToString() ?? "null"} to element: {element.ToString()}");
+					setter.ApplyValue(DependencyPropertyValuePrecedences.Animations, element);
+					Log($"Applying setter: TargetName= {setter.Target?.TargetName?.ToString() ?? "null"} - Value = {setter.Value?.ToString() ?? "null"} - Target= {setter.Target?.Target?.ToString() ?? "null"} to element: {element.ToString()}");
 				}
 			}
 		}

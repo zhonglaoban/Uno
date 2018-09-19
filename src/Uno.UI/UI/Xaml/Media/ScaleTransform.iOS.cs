@@ -40,10 +40,20 @@ namespace Windows.UI.Xaml.Media
 		{
 			// Don't update the internal value if the value is being animated.
 			// The value is being animated by the platform itself.
+			Log($"SetScaleX - {args?.NewPrecedence.ToString() ?? "null"} -- BypassesPropagation == {args?.BypassesPropagation.ToString() ?? "null"}; oldValue= {args.OldValue?.ToString() ?? "null"}; newValue={args.NewValue?.ToString() ?? "null"}");
+			if (args.NewValue?.ToString() == "1" && args.OldValue?.ToString() != "1")
+			{
+				var a = DateTime.Now;
+			}
 			if (View != null && !(args.NewPrecedence == DependencyPropertyValuePrecedences.Animations && args.BypassesPropagation))
 			{
 				Update();
 			}
+		}
+
+		private void Log(string message)
+		{
+			Console.WriteLine($"ScaleTransform -- {message}");
 		}
 
 		partial void SetScaleY(DependencyPropertyChangedEventArgs args)
