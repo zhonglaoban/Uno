@@ -194,6 +194,8 @@ namespace Windows.UI.Xaml
 			{
 				if (transition?.Storyboard != null && useTransitions)
 				{
+					ApplyCurrentStateSetters(element, originalState);
+
 					transition.Storyboard.Completed -= onTransitionComplete;
 
 					if (state?.Storyboard != null)
@@ -232,30 +234,36 @@ namespace Windows.UI.Xaml
 						originalState.Storyboard.Stop();
 					}
 				}
-
-				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
-				{
-					setter.ClearValue();
-				}
 			}
 
 			this.CurrentState = state;
-			if (this.CurrentState != null)
-			{
-				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
-				{
-					setter.ApplyValue(DependencyPropertyValuePrecedences.Animations, element);
-				}
-			}
-
+			
 			if (transition?.Storyboard == null || !useTransitions)
 			{
+				ApplyCurrentStateSetters(element, originalState);
 				onTransitionComplete(this, null);
 			}
 			else
 			{
 				transition.Storyboard.Completed += onTransitionComplete;
 				transition.Storyboard.Begin();
+			}
+		}
+
+		private void ApplyCurrentStateSetters(IFrameworkElement element, VisualState previousState)
+		{
+			var oldSetters = previousState?.Setters.OfType<Setter>() ?? new List<Setter>();
+			foreach (var setter in oldSetters)
+			{
+				setter.ClearValue();
+			}
+
+			if (this.CurrentState != null)
+			{
+				foreach (var setter in this.CurrentState.Setters.OfType<Setter>())
+				{
+					setter.ApplyValue(DependencyPropertyValuePrecedences.Animations, element);
+				}
 			}
 		}
 

@@ -38,9 +38,9 @@ namespace Windows.UI.Xaml.Media.Animation
 		private const string RotateTransformAngle = "RotateTransform.Angle";
 		private const string RotateTransformAngleWithNamespace = "Windows.UI.Xaml.Media:RotateTransform.Angle";
 		private const string ScaleTransformX = "ScaleTransform.X";
-		private const string ScaleTransformXWithNamespace = "Windows.UI.Xaml.Media:ScaleTransform.X";
+		private const string ScaleTransformXWithNamespace = "Windows.UI.Xaml.Media:ScaleTransform.ScaleX";
 		private const string ScaleTransformY = "ScaleTransform.Y";
-		private const string ScaleTransformYWithNamespace = "Windows.UI.Xaml.Media:ScaleTransform.Y";
+		private const string ScaleTransformYWithNamespace = "Windows.UI.Xaml.Media:ScaleTransform.ScaleY";
 		private const string SkewTransformAngleX = "SkewTransform.AngleX";
 		private const string SkewTransformAngleXWithNamespace = "Windows.UI.Xaml.Media:SkewTransform.AngleX";
 		private const string SkewTransformAngleY = "SkewTransform.AngleY";

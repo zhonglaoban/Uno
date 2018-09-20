@@ -121,9 +121,9 @@ namespace Windows.UI.Xaml.Media.Animation
 		{
 			if (this.Children != null)
 			{
+				_runningChildren += this.Children.Count;
 				foreach (ITimeline child in this.Children)
 				{
-					_runningChildren++;
 					child.Completed += Child_Completed;
 					child.Begin();
 				}
@@ -302,10 +302,10 @@ namespace Windows.UI.Xaml.Media.Animation
 
 			child.Completed -= Child_Completed;
 
-			Interlocked.Decrement(ref _runningChildren);
+			var runningChildren = Interlocked.Decrement(ref _runningChildren);
 			_hasFillingChildren |= (child.FillBehavior != FillBehavior.Stop);
 
-			if (_runningChildren == 0)
+			if (runningChildren == 0)
 			{
 				if (NeedsRepeat(_lastBeginTime, _replayCount))
 				{

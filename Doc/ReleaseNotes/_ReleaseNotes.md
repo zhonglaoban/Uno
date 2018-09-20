@@ -8,4 +8,5 @@
 
 ### Bug fixes
 
- * 129762 - Updated Android SimpleOrientationSensor calculations based on SensorType.Gravity or based on single angle orientation when the device does not have a Gyroscope. 
+ * 129762 - Updated Android SimpleOrientationSensor calculations based on SensorType.Gravity or based on single angle orientation when the device does not have a Gyroscope.
+ * 132788 - [iOS] Visual State Transition results in unexpected behavior
