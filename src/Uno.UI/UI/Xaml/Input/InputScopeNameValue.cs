@@ -18,5 +18,6 @@ namespace Windows.UI.Xaml.Input
 		EmailSmtpAddress,
 		PersonalFullName,
 		NumericPin,
+		PostalCode
 	}
 }

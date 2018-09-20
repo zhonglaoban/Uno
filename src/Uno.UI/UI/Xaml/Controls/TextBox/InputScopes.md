@@ -35,6 +35,7 @@
 |	NumericPin	|	Expected input is a numeric PIN.	|	InputTypes.ClassNumber	|	UIKeyboardType.NumbersAndPunctuation	|
 |	Password	|	Input scope is intended for working with an alphanumeric password, including other symbols, such as punctuation and mathematical symbols.	|		|		|
 |	PersonalFullName	|	Input scope is intended for working with a complete personal name.	|		|		|
+|	PostalCode	|	Input scope is intended for working with a postal code	|	InputTypes.TextVariationPostalAddress	|		|
 |	Search	|	Input scope is intended for search strings.	|	InputTypes.ClassText	|	UIKeyboardType.Default	|
 |	SearchIncremental	|	Input scope is intended for search boxes where incremental results are displayed as the user types.	|		|		|
 |	TelephoneAreaCode	|	Input scope is intended for working with a numeric telephone area code.	|		|		|

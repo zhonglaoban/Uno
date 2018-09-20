@@ -7,8 +7,8 @@ using Windows.UI.Xaml.Input;
 
 namespace Windows.UI.Xaml.Controls
 {
-    internal static class InputScopeHelper
-    {
+	internal static class InputScopeHelper
+	{
 		internal static InputTypes ConvertToCapitalization(InputTypes types, InputScope value)
 		{
 			switch (value.GetFirstInputScopeNameValue())
@@ -21,7 +21,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		internal static InputTypes ConvertToRemoveSuggestions(InputTypes value) 
+		internal static InputTypes ConvertToRemoveSuggestions(InputTypes value)
 			=> value | InputTypes.TextFlagNoSuggestions;
 
 		internal static InputTypes ConvertInputScope(InputScope value, bool isPassword = false)
@@ -74,6 +74,9 @@ namespace Windows.UI.Xaml.Controls
 				case InputScopeNameValue.EmailNameOrAddress:
 				case InputScopeNameValue.EmailSmtpAddress:
 					return InputTypes.ClassText | InputTypes.TextVariationEmailAddress;
+
+				case InputScopeNameValue.PostalCode:
+					return InputTypes.TextVariationPostalAddress;
 
 				case InputScopeNameValue.Default:
 				default:
