@@ -29,6 +29,7 @@ namespace Sample
 			HookEvents(outer, resultOuter);
 			HookEvents(middle, resultMiddle);
 			HookEvents(inner, resultInner);
+			HookEvents(scroll, resultScroll);
 		}
 
 		private void HookEvents(Grid grid, TextBlock textBlock)
@@ -42,6 +43,7 @@ namespace Sample
 			void TapHandler2(object snd, TappedRoutedEventArgs evt)
 			{
 				textBlock.Text += $".t({GetPosition(evt)})";
+				//evt.Handled = false;
 			}
 
 			grid.AddHandler(TappedEvent, (TappedEventHandler) TapHandler, false);
@@ -59,6 +61,14 @@ namespace Sample
 			{
 				textBlock.Text += $".e({GetPosition(evt)})";
 			}
+
+			grid.PointerEntered += (s, e) => textBlock.Text += "<<";
+			grid.PointerExited += (s, e) => textBlock.Text += ">>";
+			grid.GotFocus += (s, e) => textBlock.Text += ".F";
+			grid.LostFocus += (s, e) => textBlock.Text += ".f";
+
+			grid.KeyDown += (s, e) => textBlock.Text += ".K";
+			grid.KeyUp += (s, e) => textBlock.Text += ".k";
 		}
 	}
 }
