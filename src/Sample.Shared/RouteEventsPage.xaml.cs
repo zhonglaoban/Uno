@@ -62,8 +62,33 @@ namespace Sample
 				textBlock.Text += $".e({GetPosition(evt)})";
 			}
 
-			grid.PointerEntered += (s, e) => textBlock.Text += "<<";
+			grid.AddHandler(DoubleTappedEvent, (DoubleTappedEventHandler) DoubleTappedHandler, true);
+
+			void DoubleTappedHandler(object sender, DoubleTappedRoutedEventArgs e)
+			{
+				textBlock.Text += $".dt";
+				e.Handled = true;
+			}
+
+			grid.PointerEntered += (s, e) =>
+			{
+				textBlock.Text += "<<";
+				e.Handled = true;
+			};
+
 			grid.PointerExited += (s, e) => textBlock.Text += ">>";
+
+			grid.PointerPressed += (s, e) =>
+			{
+				textBlock.Text += "_";
+				grid.BorderThickness = new Thickness(3);
+			};
+			grid.PointerReleased += (s, e) =>
+			{
+				textBlock.Text += "-";
+				grid.BorderThickness = new Thickness(0);
+			};
+
 			grid.GotFocus += (s, e) => textBlock.Text += ".F";
 			grid.LostFocus += (s, e) => textBlock.Text += ".f";
 
