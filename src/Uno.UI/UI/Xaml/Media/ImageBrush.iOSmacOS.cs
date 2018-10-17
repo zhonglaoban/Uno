@@ -5,13 +5,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using Uno.Extensions;
 using Uno.Logging;
-using Uno.UI.Views.Controls;
-using Uno.UI.Services;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using UIKit;
 using Uno.Disposables;
 using Windows.UI.Core;
+
+#if __IOS__
+using UIKit;
+using _Image = UIKit.UIImage;
+#elif __MACOS__
+using AppKit;
+using _Image = AppKit.NSImage;
+#endif
 
 namespace Windows.UI.Xaml.Media
 {
@@ -19,7 +24,7 @@ namespace Windows.UI.Xaml.Media
 	{
 		private readonly SerialDisposable _imageScheduler = new SerialDisposable();
 
-		internal event Action<UIImage> ImageChanged;
+		internal event Action<_Image> ImageChanged;
 
 		partial void OnSourceChangedPartial(ImageSource newValue, ImageSource oldValue)
 		{
@@ -56,7 +61,7 @@ namespace Windows.UI.Xaml.Media
 			}
 		}
 
-		private void SetImage(UIImage image,  bool failIfNull = true)
+		private void SetImage(_Image image,  bool failIfNull = true)
 		{
 			ImageChanged?.Invoke(image);
 

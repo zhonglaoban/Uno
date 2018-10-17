@@ -1,5 +1,4 @@
-﻿#if __IOS__
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,4 +22,3 @@ namespace Windows.Foundation
 		public static implicit operator CGRect(Rect rect) => new CGRect(rect.X, rect.Y, rect.Width, rect.Height);
 	}
 }
-#endif

@@ -5,11 +5,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using Uno.Disposables;
 using System.Text;
-using UIKit;
 using Uno;
 using Uno.Extensions;
 using Windows.UI.Xaml.Media;
 using Uno.UI.Extensions;
+
+#if __IOS__
+using UIKit;
+#elif __MACOS__
+using AppKit;
+using _View = AppKit.NSView;
+using _Color = AppKit.NSColor;
+using _Image = AppKit.NSImage;
+#endif
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -31,12 +39,12 @@ namespace Windows.UI.Xaml.Shapes
 		/// <param name="cornerRadius">The corner radius</param>
 		/// <param name="backgroundImage">The background image in case of a ImageBrush background</param>
 		public void UpdateLayer(
-			UIView owner,
+			_View owner,
 			Brush background,
 			Thickness borderThickness,
 			Brush borderBrush,
 			CornerRadius cornerRadius,
-			UIImage backgroundImage
+			_Image backgroundImage
 		)
 		{
 			// Frame is captured to avoid calling twice calls below.
@@ -126,7 +134,7 @@ namespace Windows.UI.Xaml.Shapes
 						Path = path,
 						Frame = area,
 						// We only use the fill color to create the mask area
-						FillColor = UIColor.White.CGColor,
+						FillColor = _Color.White.CGColor,
 					};
 
 					// We reduce the adjustedArea again so that the gradient is inside the border (like in Windows)
@@ -149,7 +157,7 @@ namespace Windows.UI.Xaml.Shapes
 							Path = path,
 							Frame = area,
 							// We only use the fill color to create the mask area
-							FillColor = UIColor.White.CGColor,
+							FillColor = _Color.White.CGColor,
 						};
 
 						// We reduce the adjustedArea again so that the image is inside the border (like in Windows)
@@ -384,9 +392,9 @@ namespace Windows.UI.Xaml.Shapes
 			public readonly Brush BorderBrush;
 			public readonly Thickness BorderThickness;
 			public readonly CornerRadius CornerRadius;
-			public readonly UIImage BackgroundImage;
+			public readonly _Image BackgroundImage;
 
-			public LayoutState(CGRect area, Brush background, Thickness borderThickness, Brush borderBrush, CornerRadius cornerRadius, UIImage backgroundImage)
+			public LayoutState(CGRect area, Brush background, Thickness borderThickness, Brush borderBrush, CornerRadius cornerRadius, _Image backgroundImage)
 			{
 				Area = area;
 				Background = background;

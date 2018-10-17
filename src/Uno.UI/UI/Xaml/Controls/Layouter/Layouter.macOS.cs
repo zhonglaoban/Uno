@@ -1,5 +1,4 @@
-﻿#if XAMARIN_IOS
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +10,11 @@ using Uno.Collections;
 using Windows.UI.Xaml.Media;
 using Windows.Foundation;
 
-using View = UIKit.UIView;
-using UIKit;
+using View = AppKit.NSView;
+using AppKit;
 using CoreGraphics;
 using Uno.Disposables;
+using CoreAnimation;
 
 namespace Windows.UI.Xaml.Controls
 {
@@ -22,7 +22,7 @@ namespace Windows.UI.Xaml.Controls
 	{
 		public IEnumerable<View> GetChildren()
 		{
-			return (Panel as UIView).GetChildren();
+			return (Panel as NSView).GetChildren();
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace Windows.UI.Xaml.Controls
 		protected Size MeasureChildOverride(View view, Size slotSize)
 		{
 			var ret = view
-				.SizeThatFits(slotSize.LogicalToPhysicalPixels())
+				.Measure(slotSize.LogicalToPhysicalPixels())
 				.PhysicalToLogicalPixels()
 				.ToFoundationSize();
 
@@ -114,15 +114,17 @@ namespace Windows.UI.Xaml.Controls
 
 		private static void UpdateClip(View view)
 		{
-			if (!FeatureConfiguration.UIElement.UseLegacyClipping)
-			{
-				UIElement.UpdateMask(view, view.Superview);
+			// TODO
 
-				foreach (var child in view.GetChildren())
-				{
-					UIElement.UpdateMask(child, view);
-				}
-			}
+			//if (!FeatureConfiguration.UIElement.UseLegacyClipping)
+			//{
+			//	UIElement.UpdateMask(view, view.Superview);
+
+			//	foreach (var child in view.GetChildren())
+			//	{
+			//		UIElement.UpdateMask(child, view);
+			//	}
+			//}
 		}
 
 		/// <summary>
@@ -137,23 +139,22 @@ namespace Windows.UI.Xaml.Controls
 				return null;
 			}
 
-			if (view.Transform.IsIdentity)
+			if (view.Layer.Transform.IsIdentity)
 			{
 				// Transform is identity anyway
 				return null;
 			}
 
-			// If UIView.Transform is not identity, then modifying the frame will give undefined behavior. (https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/#//apple_ref/occ/instp/UIView/transform)
+			// If NSView.Transform is not identity, then modifying the frame will give undefined behavior. (https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/#//apple_ref/occ/instp/NSView/transform)
 			// We have either already applied the transform to the new frame, or we will reset the transform straight after.
-			var transform = view.Transform;
-			view.Transform = CGAffineTransform.MakeIdentity();
+			var transform = view.Layer.Transform;
+			view.Layer.Transform = CATransform3D.Identity;
 			return Disposable.Create(reapplyTransform);
 
 			void reapplyTransform()
 			{
-				view.Transform = transform;
+				view.Layer.Transform = transform;
 			}
 		}
 	}
 }
-#endif

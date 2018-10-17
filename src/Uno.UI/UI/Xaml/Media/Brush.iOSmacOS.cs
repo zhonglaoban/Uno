@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Color = UIKit.UIColor;
 using Uno.Extensions;
 using CoreGraphics;
 using Uno.Disposables;
-using UIKit;
 using Windows.UI.Xaml.Media;
+
+#if __IOS__
+using UIKit;
+using _Image = UIKit.UIImage;
+#elif __MACOS__
+using AppKit;
+using _Image = AppKit.NSImage;
+#endif
 
 namespace Windows.UI.Xaml.Media
 {
@@ -40,7 +46,7 @@ namespace Windows.UI.Xaml.Media
 				}
 				else if (imageBrush != null)
 				{
-					Action<UIImage> action = _ => colorSetter(SolidColorBrushHelper.Transparent.Color);
+					Action<_Image> action = _ => colorSetter(SolidColorBrushHelper.Transparent.Color);
 
 					imageBrush.ImageChanged += action;
 

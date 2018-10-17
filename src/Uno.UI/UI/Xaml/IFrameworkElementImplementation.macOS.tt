@@ -161,15 +161,15 @@ namespace <#= mixin.NamespaceName #>
 #endif
 
 #if <#= mixin.DefineLayoutSubviews #>
-		public override void LayoutSubviews()
+		public override void Layout()
 		{
 			_layoutRequested = false;
-			base.LayoutSubviews();
+			base.Layout();
 		}
 #endif
 
 #if <#= mixin.DefineSetNeedsLayout #>
-		public override void NeedsLayout
+		public override bool NeedsLayout
 		{
 			set
 			{
@@ -435,13 +435,14 @@ namespace <#= mixin.NamespaceName #>
 				RenderSize = _actualSize;
 #endif
 
-				CGAffineTransform? oldTransform = null;
-				if (!Transform.IsIdentity) 
+
+				CoreAnimation.CATransform3D? oldTransform = null;
+				if (!Layer.Transform.IsIdentity) 
 				{
 					// If NSView.Transform is not identity, then modifying the frame will give undefined behavior. (https://developer.apple.com/library/ios/documentation/UIKit/Reference/NSView_Class/#//apple_ref/occ/instp/NSView/transform)
 					// We reapply the transform based on the new size straight after.
-					oldTransform = Transform;
-					Transform = CGAffineTransform.MakeIdentity();
+					oldTransform = Layer.Transform;
+					Layer.Transform = CoreAnimation.CATransform3D.Identity;
 				}
 
 				base.Frame = value;
@@ -455,7 +456,7 @@ namespace <#= mixin.NamespaceName #>
 				if (oldTransform != null) 
 				{
 					// We grudgingly support setting the native transform directly without going through RenderTransform.
-					Transform = oldTransform.Value;
+					Layer.Transform = oldTransform.Value;
 				}
 			}
 		}
@@ -560,7 +561,7 @@ namespace <#= mixin.NamespaceName #>
 			base.ViewDidMoveToSuperview();
 			OnViewDidMoveToSuperview();
 
-			SetNeedsLayout();
+			this.SetNeedsLayout();
 		}
 
 		partial void OnViewDidMoveToSuperview();
@@ -583,7 +584,7 @@ namespace <#= mixin.NamespaceName #>
 		{
 			IsLoaded = true;
 
-			SetNeedsLayout();
+			this.SetNeedsLayout();
 			OnLoadedPartial();
 
 			Loaded?.Invoke(this, RoutedEventArgs.Empty);
@@ -723,7 +724,7 @@ namespace <#= mixin.NamespaceName #>
 
 		public void SetSubviewsNeedLayout() 
 		{
-			base.SetNeedsLayout();
+			base.NeedsLayout = true;
 			foreach (var view in this.GetChildren()) 
 			{
 				(view as IFrameworkElement)?.SetSubviewsNeedLayout();
@@ -937,7 +938,7 @@ namespace <#= mixin.NamespaceName #>
 
 		#endregion
 
-		public override NSView HitTest(CGPoint point, UIEvent uievent)
+		public override NSView HitTest(CGPoint point)
 		{
 			//If IsHitTestVisible is false, ignore children
 			if (!IsHitTestVisible || !IsEnabled)
@@ -945,7 +946,7 @@ namespace <#= mixin.NamespaceName #>
 				return null;
 			}
 
-			var viewHit = base.HitTest(point, uievent);
+			var viewHit = base.HitTest(point);
 
 			//Check for background
 			<# //TODO: This will not find HitCheckBackground if viewHit is not of the same type. HitCheckBackground should either be put on IFrameworkElement or, more likely, refactored out of existence. #>

@@ -202,7 +202,7 @@ namespace Windows.UI.Xaml.Controls.Maps
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomInAsync()
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomOutAsync()
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomToAsync(double)
-		#if __ANDROID__ || false || false || false || __MACOS__
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.Foundation.IAsyncOperation<bool> TrySetSceneAsync( global::Windows.UI.Xaml.Controls.Maps.MapScene scene)
 		{

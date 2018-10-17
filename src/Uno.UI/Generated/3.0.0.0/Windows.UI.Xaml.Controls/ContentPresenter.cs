@@ -89,20 +89,7 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property CornerRadius
 		// Skipping already declared property BorderThickness
 		// Skipping already declared property BorderBrush
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Xaml.Media.Brush Background
-		{
-			get
-			{
-				return (global::Windows.UI.Xaml.Media.Brush)this.GetValue(BackgroundProperty);
-			}
-			set
-			{
-				this.SetValue(BackgroundProperty, value);
-			}
-		}
-		#endif
+		// Skipping already declared property Background
 		// Skipping already declared property HorizontalContentAlignment
 		// Skipping already declared property VerticalContentAlignment
 		// Skipping already declared property TextWrapping
@@ -209,14 +196,7 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property CornerRadiusProperty
 		// Skipping already declared property BorderThicknessProperty
 		// Skipping already declared property BorderBrushProperty
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public static global::Windows.UI.Xaml.DependencyProperty BackgroundProperty { get; } = 
-		Windows.UI.Xaml.DependencyProperty.Register(
-			"Background", typeof(global::Windows.UI.Xaml.Media.Brush), 
-			typeof(global::Windows.UI.Xaml.Controls.ContentPresenter), 
-			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.Media.Brush)));
-		#endif
+		// Skipping already declared property BackgroundProperty
 		// Skipping already declared method Windows.UI.Xaml.Controls.ContentPresenter.ContentPresenter()
 		// Forced skipping of method Windows.UI.Xaml.Controls.ContentPresenter.ContentPresenter()
 		// Forced skipping of method Windows.UI.Xaml.Controls.ContentPresenter.Content.get

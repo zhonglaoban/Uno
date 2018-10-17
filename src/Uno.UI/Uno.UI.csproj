@@ -105,6 +105,7 @@
 
 
 	<ItemGroup>
+		<None Include="Extensions\CGSizeExtensions.iOSmacOS.cs" />
 		<None Include="Resources\AboutResources.txt" />
 		<None Include="Resources\Values\Attrs.xml" />
 		<None Include="Resources\Values\Styles.xml" />

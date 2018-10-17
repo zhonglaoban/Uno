@@ -5,27 +5,28 @@ using Uno.UI.Extensions;
 using Uno.Logging;
 using Uno.Extensions;
 
-#if XAMARIN_IOS_UNIFIED
 using Foundation;
-using UIKit;
 using CoreGraphics;
-#elif XAMARIN_IOS
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-using CGRect = System.Drawing.RectangleF;
-using nfloat = System.Single;
-using CGPoint = System.Drawing.PointF;
-using nint = System.Int32;
-using CGSize = System.Drawing.SizeF;
+
+#if __IOS__
+using UIKit;
+using _View = UIKit.UIView;
+#elif __MACOS__
+using AppKit;
+using _View = AppKit.NSView;
 #endif
 
 namespace Uno.UI
 {
 	public static class ViewHelper
 	{
+#if __IOS__
 		public static readonly nfloat MainScreenScale = UIScreen.MainScreen.Scale;
 		public static readonly bool IsRetinaDisplay = UIScreen.MainScreen.Scale > 1.0f;
+#elif __MACOS__
+		public static readonly nfloat MainScreenScale = NSScreen.MainScreen.UserSpaceScaleFactor;
+		public static readonly bool IsRetinaDisplay = NSScreen.MainScreen.UserSpaceScaleFactor > 1.0f;
+#endif
 
 		private static double _rectangleRoundingEpsilon = 0.05;
 		private static double _scaledRectangleRoundingEpsilon = _rectangleRoundingEpsilon * MainScreenScale;
@@ -67,7 +68,6 @@ namespace Uno.UI
 			// return new SizeF(size.Width / MainScreenScale, size.Height / MainScreenScale);
 		}
 
-#if XAMARIN_IOS_UNIFIED
 		public static Windows.Foundation.Size PhysicalToLogicalPixels(this Windows.Foundation.Size size)
 		{
 			return size;
@@ -82,7 +82,6 @@ namespace Uno.UI
 			// UISize are automatically scaled to the device's DPI, we don't need to ajust.
 			// return new SizeF(size.Width * MainScreenScale, size.Height * MainScreenScale);
 		}
-#endif
 
 		public static CGSize LogicalToPhysicalPixels(this CGSize size)
 		{
@@ -103,7 +102,6 @@ namespace Uno.UI
 			//);
 		}
 
-#if XAMARIN_IOS_UNIFIED
 		public static CGRect LogicalToPhysicalPixels(this CGRect size)
 		{
 			// https://markpospesel.wordpress.com/2013/02/27/cgrectintegral/
@@ -123,7 +121,6 @@ namespace Uno.UI
 				(nfloat)CeilingWithEpsilon(size.Height * MainScreenScale) / MainScreenScale
 			);
 		}
-#endif
 
 		/// <summary>
 		/// if the value would be 0.01, result would be 0 instead of 1 
@@ -166,7 +163,7 @@ namespace Uno.UI
             return thickness;
         }
 
-		public static nfloat StackSubViews (IEnumerable<UIView> views)
+		public static nfloat StackSubViews (IEnumerable<_View> views)
 		{
 			nfloat lastBottom = 0f;
 			foreach (var view in views) {
@@ -182,7 +179,7 @@ namespace Uno.UI
 			return lastBottom;
 		}
 
-		public static nfloat StackSubViews (UIView thisView, float topPadding, float spaceBetweenElements)
+		public static nfloat StackSubViews (_View thisView, float topPadding, float spaceBetweenElements)
 		{
 			nfloat lastBottom = topPadding;
 
@@ -206,6 +203,7 @@ namespace Uno.UI
 		/// <returns></returns>
 		public static CGSize GetScreenSize()
 		{
+#if __IOS__
 			var orientation = UIApplication.SharedApplication.StatusBarOrientation;
 			//In iOS versions prior to 8.0, the screen dimensions are based on the portrait orientation, so we might have to invert them.
 			//http://stackoverflow.com/questions/24150359/is-uiscreen-mainscreen-bounds-size-becoming-orientation-dependent-in-ios8
@@ -213,13 +211,20 @@ namespace Uno.UI
 				&& (orientation == UIInterfaceOrientation.LandscapeLeft || orientation == UIInterfaceOrientation.LandscapeRight);
 
 			return new CGSize(GetScreenWidth(shouldInvertDimension), GetScreenHeight(shouldInvertDimension));
+#elif __MACOS__
+			return new CGSize(GetScreenWidth(false), GetScreenHeight(false));
+#endif
 		}
 
 		private static nfloat GetScreenWidth(bool shouldInvertDimension)
 		{
+#if __IOS__
 			//Starting with iOS 9 and the introduction of the SplitView, 
 			//MainScreen.Bounds corresponds to the full screen size whereas the MainScreen.ApplicationFrame is the actual space the application is taking
 			var applicationFrameSize = UIScreen.MainScreen.ApplicationFrame.Size;
+#elif __MACOS__
+			var applicationFrameSize = NSScreen.MainScreen.VisibleFrame;
+#endif
 
 			return shouldInvertDimension
 				? applicationFrameSize.Height
@@ -228,8 +233,12 @@ namespace Uno.UI
 
 		private static nfloat GetScreenHeight(bool shouldInvertDimension)
 		{
+#if __IOS__
 			//Since there cannot be any vertical split, we can use MainScreen.Bounds for the height to ignore the StatusBar height
 			var fullScreenSize = UIScreen.MainScreen.Bounds.Size;
+#elif __MACOS__
+			var fullScreenSize = NSScreen.MainScreen.VisibleFrame.Size;
+#endif
 
 			return shouldInvertDimension
 				? fullScreenSize.Width

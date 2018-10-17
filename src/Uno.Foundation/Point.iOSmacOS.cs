@@ -1,5 +1,4 @@
-﻿#if __IOS__
-using Uno.Extensions;
+﻿using Uno.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,4 +15,3 @@ namespace Windows.Foundation
 		public static implicit operator CGPoint(Point point) => new CGPoint(point.X, point.Y);
 	}
 }
-#endif

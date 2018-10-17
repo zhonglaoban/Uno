@@ -2,7 +2,7 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.UI.Xaml.Controls
 {
-	#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
+	#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || false
 	[global::Uno.NotImplemented]
 	#endif
 	public  partial class SwipeItems : global::Windows.UI.Xaml.DependencyObject,global::System.Collections.Generic.IList<global::Windows.UI.Xaml.Controls.SwipeItem>,global::System.Collections.Generic.IEnumerable<global::Windows.UI.Xaml.Controls.SwipeItem>
@@ -39,7 +39,7 @@ namespace Windows.UI.Xaml.Controls
 			typeof(global::Windows.UI.Xaml.Controls.SwipeItems), 
 			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.Controls.SwipeMode)));
 		#endif
-		#if __ANDROID__ || false || false || false || __MACOS__
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public SwipeItems() : base()
 		{

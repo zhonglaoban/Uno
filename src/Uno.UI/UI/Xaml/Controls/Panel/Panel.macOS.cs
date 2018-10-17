@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Shapes;
 using Windows.UI.Xaml.Media;
 
 using CoreGraphics;
+using AppKit;
 
 namespace Windows.UI.Xaml.Controls
 {
@@ -26,11 +27,11 @@ namespace Windows.UI.Xaml.Controls
 
 		partial void Initialize();
 
-		public override void SubviewAdded(NSView nsView)
+		public override void DidAddSubview(NSView nsView)
 		{
-			base.SubviewAdded(nsView);
+			base.DidAddSubview(nsView);
 
-			var element = NSView as IFrameworkElement;
+			var element = nsView as IFrameworkElement;
 			if (element != null)
 			{
 				OnChildAdded(element);
@@ -54,13 +55,13 @@ namespace Windows.UI.Xaml.Controls
 
 		partial void OnBorderThicknessChangedPartial(Thickness oldValue, Thickness newValue)
 		{
-			SetNeedsLayout();
+			NeedsLayout = true;
 			UpdateBackground();
 		}
 
 		partial void OnPaddingChangedPartial(Thickness oldValue, Thickness newValue)
 		{
-			SetNeedsLayout();
+			NeedsLayout = true;
 		}
 
 		protected override void OnBackgroundChanged(DependencyPropertyChangedEventArgs args)
@@ -84,7 +85,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		private void OnBackgroundImageBrushChanged(UIImage backgroundImage)
+		private void OnBackgroundImageBrushChanged(NSImage backgroundImage)
 		{
 			UpdateBackground(backgroundImage);
 		}
@@ -94,7 +95,7 @@ namespace Windows.UI.Xaml.Controls
 			UpdateBackground();
 		}
 
-		private void UpdateBackground(UIImage backgroundImage = null)
+		private void UpdateBackground(NSImage backgroundImage = null)
 		{
 			// Checking for Window avoids re-creating the layer until it is actually used.
 			if (IsLoaded)
@@ -114,7 +115,7 @@ namespace Windows.UI.Xaml.Controls
 
 		protected virtual void OnChildrenChanged()
 		{
-			SetNeedsLayout();
+			NeedsLayout = true;
 		}
 
 		protected override void OnAfterArrange()
@@ -144,7 +145,7 @@ namespace Windows.UI.Xaml.Controls
 		/// }
 		/// </summary>
 		/// <param name="view"></param>
-		public new void Add(NSView view)
+		public void Add(NSView view)
 		{
 			Children.Add(view);
 		}
@@ -155,10 +156,10 @@ namespace Windows.UI.Xaml.Controls
 			set;
 		}
 
-		public override NSView HitTest(CGPoint point, UIEvent uievent)
+		public override NSView HitTest(CGPoint point)
 		{
 			// All touches that are on this view (and not its subviews) are ignored
-			return HitTestOutsideFrame ? this.HitTestOutsideFrame(point, uievent) : base.HitTest(point, uievent);
+			return HitTestOutsideFrame ? this.HitTestOutsideFrame(point) : base.HitTest(point);
 		}
 	}
 }

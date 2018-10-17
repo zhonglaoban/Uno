@@ -63,6 +63,12 @@
 		<Compile Include="**\*.macOS.cs" 
 						 Exclude="bin\**\*.macOS.cs;obj\**\*.macOS.cs"
 						 Condition="$(_IsMacOS)" />
+	  
+		<None Include="**\*.iOSmacOS.cs" Exclude="bin\**\*.iOSmacOS.cs;obj\**\*.iOSmacOS.cs" />
+		<Compile Remove="**\*.iOSmacOS.cs" />
+		<Compile Include="**\*.iOSmacOS.cs" 
+						 Exclude="bin\**\*.iOSmacOS.cs;obj\**\*.iOSmacOS.cs"
+						 Condition="$(_IsMacOS) or $(_IsIOS)" />
 
 		<None Include="**\*.Android.cs" Exclude="bin\**\*.Android.cs;obj\**\*.Android.cs" />
 		<Compile Remove="**\*.Android.cs" />

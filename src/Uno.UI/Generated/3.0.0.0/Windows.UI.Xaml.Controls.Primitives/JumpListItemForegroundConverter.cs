@@ -2,7 +2,7 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.UI.Xaml.Controls.Primitives
 {
-	#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
+	#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || false
 	[global::Uno.NotImplemented]
 	#endif
 	public  partial class JumpListItemForegroundConverter : global::Windows.UI.Xaml.DependencyObject,global::Windows.UI.Xaml.Data.IValueConverter
@@ -51,7 +51,7 @@ namespace Windows.UI.Xaml.Controls.Primitives
 			typeof(global::Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter), 
 			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.Media.Brush)));
 		#endif
-		#if __ANDROID__ || false || false || false || __MACOS__
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public JumpListItemForegroundConverter() : base()
 		{

@@ -13,36 +13,10 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property Padding
 		// Skipping already declared property HorizontalContentAlignment
 		// Skipping already declared property BorderThickness
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Xaml.Media.Brush Background
-		{
-			get
-			{
-				return (global::Windows.UI.Xaml.Media.Brush)this.GetValue(BackgroundProperty);
-			}
-			set
-			{
-				this.SetValue(BackgroundProperty, value);
-			}
-		}
-		#endif
+		// Skipping already declared property Background
 		// Skipping already declared property Foreground
 		// Skipping already declared property IsTabStop
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  bool IsEnabled
-		{
-			get
-			{
-				return (bool)this.GetValue(IsEnabledProperty);
-			}
-			set
-			{
-				this.SetValue(IsEnabledProperty, value);
-			}
-		}
-		#endif
+		// Skipping already declared property IsEnabled
 		// Skipping already declared property BorderBrush
 		// Skipping already declared property FontWeight
 		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
@@ -259,14 +233,7 @@ namespace Windows.UI.Xaml.Controls
 		}
 		#endif
 		// Skipping already declared property DefaultStyleKey
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public static global::Windows.UI.Xaml.DependencyProperty BackgroundProperty { get; } = 
-		Windows.UI.Xaml.DependencyProperty.Register(
-			"Background", typeof(global::Windows.UI.Xaml.Media.Brush), 
-			typeof(global::Windows.UI.Xaml.Controls.Control), 
-			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.Media.Brush)));
-		#endif
+		// Skipping already declared property BackgroundProperty
 		// Skipping already declared property BorderBrushProperty
 		// Skipping already declared property BorderThicknessProperty
 		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
@@ -299,7 +266,7 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property FontWeightProperty
 		// Skipping already declared property ForegroundProperty
 		// Skipping already declared property HorizontalContentAlignmentProperty
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty IsEnabledProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -720,7 +687,7 @@ namespace Windows.UI.Xaml.Controls
 		// Forced skipping of method Windows.UI.Xaml.Controls.Control.BorderBrushProperty.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Control.DefaultStyleKeyProperty.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Control.FocusStateProperty.get
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.UI.Xaml.DependencyPropertyChangedEventHandler IsEnabledChanged
 		{

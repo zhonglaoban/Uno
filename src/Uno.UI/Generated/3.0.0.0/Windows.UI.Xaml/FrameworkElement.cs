@@ -21,7 +21,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double MinWidth
 		{
@@ -35,7 +35,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double MinHeight
 		{
@@ -49,7 +49,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double MaxWidth
 		{
@@ -63,7 +63,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double MaxHeight
 		{
@@ -77,7 +77,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Xaml.Thickness Margin
 		{
@@ -105,21 +105,8 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  string Name
-		{
-			get
-			{
-				return (string)this.GetValue(NameProperty);
-			}
-			set
-			{
-				this.SetValue(NameProperty, value);
-			}
-		}
-		#endif
-		#if false || false || NET46 || false || __MACOS__
+		// Skipping already declared property Name
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Xaml.HorizontalAlignment HorizontalAlignment
 		{
@@ -133,7 +120,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double Height
 		{
@@ -148,7 +135,7 @@ namespace Windows.UI.Xaml
 		}
 		#endif
 		// Skipping already declared property Resources
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double Width
 		{
@@ -177,7 +164,7 @@ namespace Windows.UI.Xaml
 		}
 		#endif
 		// Skipping already declared property Style
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Xaml.VerticalAlignment VerticalAlignment
 		{
@@ -191,7 +178,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double ActualHeight
 		{
@@ -201,7 +188,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  double ActualWidth
 		{
@@ -212,7 +199,7 @@ namespace Windows.UI.Xaml
 		}
 		#endif
 		// Skipping already declared property Parent
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  global::System.Uri BaseUri
 		{
@@ -378,7 +365,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.FlowDirection)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty HeightProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -386,7 +373,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty HorizontalAlignmentProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -402,7 +389,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(string)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty MaxHeightProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -410,7 +397,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty MaxWidthProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -418,7 +405,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty MinHeightProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -426,7 +413,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty MinWidthProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -434,7 +421,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || __WASM__ || __MACOS__
+		#if false || false || NET46 || __WASM__ || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty NameProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -443,7 +430,7 @@ namespace Windows.UI.Xaml
 			new FrameworkPropertyMetadata(default(string)));
 		#endif
 		// Skipping already declared property StyleProperty
-		#if false || false || NET46 || __WASM__ || __MACOS__
+		#if false || false || NET46 || __WASM__ || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty TagProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -451,7 +438,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(object)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty VerticalAlignmentProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -459,7 +446,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.VerticalAlignment)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty WidthProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -467,7 +454,7 @@ namespace Windows.UI.Xaml
 			typeof(global::Windows.UI.Xaml.FrameworkElement), 
 			new FrameworkPropertyMetadata(default(double)));
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public static global::Windows.UI.Xaml.DependencyProperty MarginProperty { get; } = 
 		Windows.UI.Xaml.DependencyProperty.Register(
@@ -594,14 +581,8 @@ namespace Windows.UI.Xaml
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.SizeChanged.remove
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.LayoutUpdated.add
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.LayoutUpdated.remove
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  object FindName( string name)
-		{
-			throw new global::System.NotImplementedException("The member object FrameworkElement.FindName(string name) is not implemented in Uno.");
-		}
-		#endif
-		#if __ANDROID__ || false || false || false || __MACOS__
+		// Skipping already declared method Windows.UI.Xaml.FrameworkElement.FindName(string)
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public  void SetBinding( global::Windows.UI.Xaml.DependencyProperty dp,  global::Windows.UI.Xaml.Data.BindingBase binding)
 		{
@@ -615,7 +596,7 @@ namespace Windows.UI.Xaml
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.RequestedTheme.set
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.DataContextChanged.add
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.DataContextChanged.remove
-		#if __ANDROID__ || false || false || false || __MACOS__
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public  global::Windows.UI.Xaml.Data.BindingExpression GetBindingExpression( global::Windows.UI.Xaml.DependencyProperty dp)
 		{
@@ -681,7 +662,7 @@ namespace Windows.UI.Xaml
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.DataContextProperty.get
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.StyleProperty.get
 		// Forced skipping of method Windows.UI.Xaml.FrameworkElement.FlowDirectionProperty.get
-		#if false || false || NET46 || __WASM__ || __MACOS__
+		#if false || false || NET46 || __WASM__ || false
 		[global::Uno.NotImplemented]
 		public  event global::System.EventHandler<object> LayoutUpdated
 		{
@@ -697,7 +678,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.UI.Xaml.RoutedEventHandler Loaded
 		{
@@ -713,7 +694,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.UI.Xaml.SizeChangedEventHandler SizeChanged
 		{
@@ -729,7 +710,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.UI.Xaml.RoutedEventHandler Unloaded
 		{
@@ -745,7 +726,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if __ANDROID__ || false || false || false || __MACOS__
+		#if __ANDROID__ || false || false || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.Foundation.TypedEventHandler<global::Windows.UI.Xaml.FrameworkElement, global::Windows.UI.Xaml.DataContextChangedEventArgs> DataContextChanged
 		{
@@ -761,7 +742,7 @@ namespace Windows.UI.Xaml
 			}
 		}
 		#endif
-		#if false || false || NET46 || false || __MACOS__
+		#if false || false || NET46 || false || false
 		[global::Uno.NotImplemented]
 		public  event global::Windows.Foundation.TypedEventHandler<global::Windows.UI.Xaml.FrameworkElement, object> Loading
 		{

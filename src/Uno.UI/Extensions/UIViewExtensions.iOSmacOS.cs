@@ -19,22 +19,31 @@ using Uno.UI.Controls;
 using Foundation;
 using UIKit;
 using CoreGraphics;
-#elif XAMARIN_IOS
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-using CGRect = System.Drawing.RectangleF;
-using nfloat = System.Single;
-using CGPoint = System.Drawing.PointF;
-using nint = System.Int32;
-using CGSize = System.Drawing.SizeF;
+using _View = UIKit.UIView;
+using _Controller = UIKit.UIViewController;
+using _Responder = UIKit.UIResponder;
+using _Color = UIKit.UIColor;
+using _Event = UIKit.UIEvent;
+#elif __MACOS__
+using Foundation;
+using AppKit;
+using CoreGraphics;
+using _View = AppKit.NSView;
+using _Controller = AppKit.NSViewController;
+using _Responder = AppKit.NSResponder;
+using _Color = AppKit.NSColor;
+using _Event = AppKit.NSEvent;
 #endif
 
+#if XAMARIN_IOS_UNIFIED
 namespace UIKit
+#elif __MACOS__
+namespace AppKit
+#endif
 {
-	public static class UIViewExtensions
+	public static class _ViewExtensions
 	{
-		public static bool HasParent(this UIView view)
+		public static bool HasParent(this _View view)
 		{
 			return view.Superview != null;
 		}
@@ -46,8 +55,8 @@ namespace UIKit
 		/// <param name="view"></param>
 		/// <param name="selector">Selector that will be proved against the parents of type T</param>
 		/// <returns>Return the first parent of the view of specified T type that also holds true with the selector</returns>
-		public static T FindFirstParent<T>(this UIView view, Func<UIView, T> selector)
-			where T : UIView
+		public static T FindFirstParent<T>(this _View view, Func<_View, T> selector)
+			where T : _View
 		{
 			view = view?.Superview;
 			while (view != null)
@@ -69,8 +78,8 @@ namespace UIKit
 		/// <param name="view"></param>
 		/// <param name="predicate">Predicate that will be proved against the parents of type T</param>
 		/// <returns>First parent of the view of specified T type that also holds true with the predicate</returns>
-		public static T FindFirstParent<T>(this UIView view, Func<T, bool> predicate)
-			where T : UIView
+		public static T FindFirstParent<T>(this _View view, Func<T, bool> predicate)
+			where T : _View
 		{
 			view = view?.Superview;
 			while (view != null)
@@ -93,7 +102,7 @@ namespace UIKit
 		/// <typeparam name="T"></typeparam>
 		/// <param name="view"></param>
 		/// <returns>First parent of the view of specified T type.</returns>
-		public static T FindFirstParent<T>(this UIView view)
+		public static T FindFirstParent<T>(this _View view)
 			where T : class
 		{
 			view = view?.Superview;
@@ -109,10 +118,10 @@ namespace UIKit
 			return null;
 		}
 
-		public static T FindFirstChild<T>(this UIView view, Func<T, bool> selector = null, int? childLevelLimit = null, bool includeCurrent = true)
-			where T : UIView
+		public static T FindFirstChild<T>(this _View view, Func<T, bool> selector = null, int? childLevelLimit = null, bool includeCurrent = true)
+			where T : _View
 		{
-			Func<UIView, bool> viewSelector;
+			Func<_View, bool> viewSelector;
 			if (selector == null)
 			{
 				viewSelector = v => v is T;
@@ -143,7 +152,7 @@ namespace UIKit
 		/// Removes the provided child from this view.
 		/// </summary>
 		/// <param name="child">The child to remove</param>
-		public static void RemoveChild(this UIView view, UIView child)
+		public static void RemoveChild(this _View view, _View child)
 		{
 			if (child.Superview != view)
 			{
@@ -157,21 +166,28 @@ namespace UIKit
 		/// Invalidates the layout of the selected view. For iOS, calls the SetNeedsLayout method.
 		/// </summary>
 		/// <param name="view">The view to invalidate.</param>
-		public static void InvalidateMeasure(this UIView view)
+		public static void InvalidateMeasure(this _View view)
 		{
 			view.SetNeedsLayout();
 		}
+
+#if __MACOS__
+		public static void SetNeedsLayout(this _View view)
+		{
+			view.NeedsLayout = true;
+		}
+#endif
 
 		/// <summary>
 		/// Invalidates the layout of the selected view. For iOS, calls the SetNeedsLayout method.
 		/// </summary>
 		/// <param name="view">The view to invalidate.</param>
-		public static void InvalidateArrange(this UIView view)
+		public static void InvalidateArrange(this _View view)
 		{
 			InvalidateMeasure(view);
 		}
 
-		public static IEnumerable<UIView> FindSubviews(this UIView view, Func<UIView, bool> selector, int maxDepth = 20)
+		public static IEnumerable<_View> FindSubviews(this _View view, Func<_View, bool> selector, int maxDepth = 20)
 		{
 			foreach (var sub in view.Subviews)
 			{
@@ -195,7 +211,7 @@ namespace UIKit
 		/// <param name="view">The view group to get the children from</param>
 		/// <param name="maxDepth">The depth to stop looking for children.</param>
 		/// <returns>A lazy enumerable of views</returns>
-		public static IEnumerable<UIView> EnumerateAllChildren(this UIView view, int maxDepth = 20)
+		public static IEnumerable<_View> EnumerateAllChildren(this _View view, int maxDepth = 20)
 		{
 			foreach (var subview in view.Subviews)
 			{
@@ -211,7 +227,7 @@ namespace UIKit
 			}
 		}
 
-		public static IEnumerable<T> FindSubviewsOfType<T>(this UIView view, int maxDepth = 20) where T : class
+		public static IEnumerable<T> FindSubviewsOfType<T>(this _View view, int maxDepth = 20) where T : class
 		{
 			return FindSubviews(view, (v) => v as T != null, maxDepth)
 				.OfType<T>();
@@ -222,10 +238,10 @@ namespace UIKit
 		/// </summary>
 		/// <param name="view">The view to get the parents from</param>
 		/// <param name="predicate">The predicate used to stop the superview search</param>
-		/// <returns>An enumerable of UIView instances.</returns>
-		public static IEnumerable<UIView> FindSuperviews(this UIView view, Func<UIView, bool> predicate = null)
+		/// <returns>An enumerable of _View instances.</returns>
+		public static IEnumerable<_View> FindSuperviews(this _View view, Func<_View, bool> predicate = null)
 		{
-			predicate = predicate ?? Funcs.Create((UIView v) => true);
+			predicate = predicate ?? Funcs.Create((_View v) => true);
 
 			while (view != null)
 			{
@@ -248,17 +264,17 @@ namespace UIKit
 		/// <typeparam name="T"></typeparam>
 		/// <param name="view"></param>
 		/// <returns></returns>
-		public static IEnumerable<T> FindSuperviewsOfType<T>(this UIView view)
+		public static IEnumerable<T> FindSuperviewsOfType<T>(this _View view)
 		{
 			return view.FindSuperviews().OfType<T>();
 		}
 
-		public static void SetPosition(this UIView view, float? x = null, float? y = null)
+		public static void SetPosition(this _View view, float? x = null, float? y = null)
 		{
 			view.Frame = new CGRect(x ?? view.Frame.X, y ?? view.Frame.Y, view.Frame.Width, view.Frame.Height);
 		}
 
-		public static void SetDimensions(this UIView view, nfloat? width = null, nfloat? height = null)
+		public static void SetDimensions(this _View view, nfloat? width = null, nfloat? height = null)
 		{
 			if (nfloat.IsNaN(width ?? 0) || nfloat.IsNaN(height ?? 0))
 			{
@@ -271,13 +287,17 @@ namespace UIKit
 			view.Frame = new CGRect(view.Frame.X, view.Frame.Y, width ?? view.Frame.Width, height ?? view.Frame.Height);
 		}
 
-		public static UIView FindFirstResponder(this UIView view)
+		public static _View FindFirstResponder(this _View view)
 		{
+#if __IOS__
 			if (view.IsFirstResponder)
+#elif __MACOS__
+			if (view.Window.FirstResponder == view)
+#endif
 			{
 				return view;
 			}
-			foreach (UIView subView in view.Subviews)
+			foreach (_View subView in view.Subviews)
 			{
 				var firstResponder = subView.FindFirstResponder();
 				if (firstResponder != null)
@@ -289,10 +309,10 @@ namespace UIKit
 		}
 
 		/// <summary>
-		/// Finds the nearest view controller for this UIView.
+		/// Finds the nearest view controller for this _View.
 		/// </summary>
-		/// <returns>A UIViewController instance, otherwise null.</returns>
-		public static UIViewController FindViewController(this UIView view)
+		/// <returns>A _ViewController instance, otherwise null.</returns>
+		public static _Controller FindViewController(this _View view)
 		{
 			if (view?.NextResponder == null)
 			{
@@ -300,22 +320,22 @@ namespace UIKit
 				// Here, we substitute the view with the first logical parent that's part of the visual tree (or has a next responder).
 				view = (view as DependencyObject)
 					.GetParents()
-					.OfType<UIView>()
+					.OfType<_View>()
 					.Where(parent => parent.NextResponder != null)
 					.FirstOrDefault();
 			}
 
-			UIResponder responder = view;
+			_Responder responder = view;
 
 			do
 			{
-				if (responder is UIView uiView)
+				if (responder is _View nativeView)
 				{
-					responder = uiView.NextResponder;
+					responder = nativeView.NextResponder;
 				}
-				else if (responder is UIViewController uiViewController)
+				else if (responder is _Controller controller)
 				{
-					return uiViewController;
+					return controller;
 				}
 
 			} while (responder != null);
@@ -323,7 +343,7 @@ namespace UIKit
 			return null;
 		}
 
-		public static UIView FindSuperviewOfType(this UIView view, UIView stopAt, Type type)
+		public static _View FindSuperviewOfType(this _View view, _View stopAt, Type type)
 		{
 			if (view.Superview != null)
 			{
@@ -341,7 +361,7 @@ namespace UIKit
 			return null;
 		}
 
-		public static T FindSuperviewOfType<T>(this UIView view, UIView stopAt) where T : UIView
+		public static T FindSuperviewOfType<T>(this _View view, _View stopAt) where T : _View
 		{
 			if (view.Superview != null)
 			{
@@ -360,17 +380,17 @@ namespace UIKit
 			return null;
 		}
 
-		public static nfloat StackSubViews(this UIView thisView)
+		public static nfloat StackSubViews(this _View thisView)
 		{
 			return ViewHelper.StackSubViews(thisView.Subviews);
 		}
 
-		public static nfloat StackSubViews(this UIView thisView, float topPadding, float spaceBetweenElements)
+		public static nfloat StackSubViews(this _View thisView, float topPadding, float spaceBetweenElements)
 		{
 			return ViewHelper.StackSubViews(thisView, topPadding, spaceBetweenElements);
 		}
 
-		public static void ResignFirstResponderOnSubviews(this UIView thisView)
+		public static void ResignFirstResponderOnSubviews(this _View thisView)
 		{
 			thisView.ResignFirstResponder();
 			foreach (var view in thisView.Subviews)
@@ -379,7 +399,7 @@ namespace UIKit
 			}
 		}
 
-		public static void AddToBottom(this UIView thisView, UIView toAdd)
+		public static void AddToBottom(this _View thisView, _View toAdd)
 		{
 			if (thisView.Subviews.Any())
 			{
@@ -389,18 +409,18 @@ namespace UIKit
 			thisView.AddSubview(toAdd);
 		}
 
-		public static void AddToViewBottom(this UIView thisView, UIView toAddTo)
+		public static void AddToViewBottom(this _View thisView, _View toAddTo)
 		{
 			toAddTo.AddToBottom(thisView);
 		}
 
-		public static T AddTo<T>(this T thisView, UIView toAddTo) where T : UIView
+		public static T AddTo<T>(this T thisView, _View toAddTo) where T : _View
 		{
 			toAddTo.AddSubview(thisView);
 			return thisView;
 		}
 
-		public static void AddBorder(this UIView thisButton, float borderThickness = 1, UIColor borderColor = null)
+		public static void AddBorder(this _View thisButton, float borderThickness = 1, _Color borderColor = null)
 		{
 			if (borderColor != null)
 			{
@@ -416,21 +436,31 @@ namespace UIKit
 			}
 		}
 
-		public static void RoundCorners(this UIView thisButton, float radius = 2, float borderThickness = 0, UIColor borderColor = null)
+		public static void RoundCorners(this _View thisButton, float radius = 2, float borderThickness = 0, _Color borderColor = null)
 		{
 			thisButton.AddBorder(borderThickness, borderColor);
 			thisButton.Layer.CornerRadius = radius;
 		}
 
-		public static UIView HitTestOutsideFrame(this UIView thisView, CGPoint point, UIEvent uievent)
+		public static _View HitTestOutsideFrame(
+			this _View thisView
+			, CGPoint point
+#if __IOS__
+			, _Event uievent
+#endif
+		)
 		{
 			// All touches that are on this view (and not its subviews) are ignored
-			if (!thisView.Hidden && thisView.Alpha > 0)
+			if (!thisView.Hidden && thisView.GetNativeAlpha() > 0)
 			{
 				foreach (var subview in thisView.Subviews.Safe().Reverse())
 				{
 					var subPoint = subview.ConvertPointFromView(point, thisView);
+#if __IOS__
 					var result = subview.HitTest(subPoint, uievent);
+#elif __MACOS__
+					var result = subview.HitTest(subPoint);
+#endif
 					if (result != null)
 					{
 						return result;
@@ -441,10 +471,19 @@ namespace UIKit
 			return null;
 		}
 
+		public static nfloat GetNativeAlpha(this _View view)
+		{
+#if __MACOS__
+			return view.AlphaValue;
+#elif __IOS__
+			return view.Alpha;
+#endif
+		}
+
 		/// <summary>
 		/// Gets an identifier that can be used for logging
 		/// </summary>
-		public static string GetDebugIdentifier(this UIView element)
+		public static string GetDebugIdentifier(this _View element)
 		{
 			if (element == null)
 			{
@@ -458,11 +497,11 @@ namespace UIKit
 		}
 
 		/// <summary>
-		/// Enumerates the children for the specified instance, either using UIView.Subviews or using IShadowChildrenProvider.
+		/// Enumerates the children for the specified instance, either using _View.Subviews or using IShadowChildrenProvider.
 		/// </summary>
 		/// <param name="view"></param>
 		/// <returns></returns>
-		public static IEnumerable<UIView> GetChildren(this UIView view)
+		public static IEnumerable<_View> GetChildren(this _View view)
 		{
 			if (view is IShadowChildrenProvider shadow)
 			{
@@ -475,11 +514,11 @@ namespace UIKit
 		}
 
 		/// <summary>
-		/// Finds the first child <see cref="UIView"/> of the provided <see cref="UIView"/>.
+		/// Finds the first child <see cref="_View"/> of the provided <see cref="_View"/>.
 		/// </summary>
-		/// <param name="view">The <see cref="UIView"/> to search into.</param>
-		/// <returns>A <see cref="UIView"/> if any, otherwise null.</returns>
-		public static UIView FindFirstChild(this UIView view)
+		/// <param name="view">The <see cref="_View"/> to search into.</param>
+		/// <returns>A <see cref="_View"/> if any, otherwise null.</returns>
+		public static _View FindFirstChild(this _View view)
 		{
 			var shadow = view as IShadowChildrenProvider;
 
@@ -505,7 +544,7 @@ namespace UIKit
 		/// <summary>
 		/// Returns the root of the view's local visual tree.
 		/// </summary>
-		public static UIView GetTopLevelParent(this UIView view)
+		public static _View GetTopLevelParent(this _View view)
 		{
 			var current = view;
 			while (current != null)
@@ -523,7 +562,7 @@ namespace UIKit
 		/// <summary>
 		/// Displays all the visual descendants of <paramref name="view"/> for diagnostic purposes. 
 		/// </summary>
-		public static string ShowDescendants(this UIView view, StringBuilder sb = null, string spacing = "", UIView viewOfInterest = null)
+		public static string ShowDescendants(this _View view, StringBuilder sb = null, string spacing = "", _View viewOfInterest = null)
 		{
 			sb = sb ?? new StringBuilder();
 			AppendView(view);
@@ -535,7 +574,7 @@ namespace UIKit
 
 			return sb.ToString();
 
-			void AppendView(UIView innerView)
+			void AppendView(_View innerView)
 			{
 				sb.AppendLine($"{spacing}{(innerView == viewOfInterest ? "*" : "")}>{innerView.ToString()}-({innerView.Frame.Width}x{innerView.Frame.Height})");
 			}
@@ -547,7 +586,7 @@ namespace UIKit
 		/// <param name="view">The view to display tree for.</param>
 		/// <param name="fromHeight">How many levels above <paramref name="view"/> should be included in the displayed subtree.</param>
 		/// <returns>A formatted string representing the visual tree around <paramref name="view"/>.</returns>
-		public static string ShowLocalVisualTree(this UIView view, int fromHeight = 0)
+		public static string ShowLocalVisualTree(this _View view, int fromHeight = 0)
 		{
 			var root = view;
 			for (int i = 0; i < fromHeight; i++)

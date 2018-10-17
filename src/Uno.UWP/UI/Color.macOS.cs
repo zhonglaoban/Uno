@@ -5,8 +5,8 @@ namespace Windows.UI
 {
 	public partial struct Color : IFormattable
 	{
-		public static implicit operator AppKit.NSColor(Color color) => AppKit.NSColor.FromRGBA(color.R, color.G, color.B, color.A);
-		public static implicit operator CoreGraphics.CGColor(Color color) => AppKit.NSColor.FromRGBA(color.R, color.G, color.B, color.A).CGColor;
+		public static implicit operator AppKit.NSColor(Color color) => AppKit.NSColor.FromRgba(color.R, color.G, color.B, color.A);
+		public static implicit operator CoreGraphics.CGColor(Color color) => AppKit.NSColor.FromRgba(color.R, color.G, color.B, color.A).CGColor;
 
 		public static implicit operator Color(AppKit.NSColor color) => color.CGColor;
 

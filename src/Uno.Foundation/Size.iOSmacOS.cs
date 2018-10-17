@@ -1,5 +1,4 @@
-﻿#if __IOS__
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Security;
 using CoreGraphics;
 
@@ -12,4 +11,3 @@ namespace Windows.Foundation
 		public static implicit operator CGSize(Size size) => new CGSize(size.Width, size.Height);
 	}
 }
-#endif

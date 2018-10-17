@@ -1,5 +1,4 @@
-﻿#if XAMARIN_IOS_UNIFIED
-using CoreGraphics;
+﻿using CoreGraphics;
 using System;
 using System.Drawing;
 
@@ -181,4 +180,3 @@ namespace Uno.UI.Extensions
 		}
 	}
 }
-#endif

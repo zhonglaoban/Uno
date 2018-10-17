@@ -19,17 +19,20 @@ namespace Windows.UI.Xaml
 
 		partial void Initialize();
 
-		public override void SetNeedsLayout()
+		public override bool NeedsLayout
 		{
-			if (!_inLayoutSubviews)
+			set
 			{
-				base.SetNeedsLayout();
+				if (!_inLayoutSubviews)
+				{
+					base.NeedsLayout = value;
+				}
+
+				RequiresMeasure = true;
+				RequiresArrange = true;
+
+				SetSuperviewNeedsLayout();
 			}
-
-			RequiresMeasure = true;
-			RequiresArrange = true;
-
-			SetSuperviewNeedsLayout();
 		}
 
 		public FrameworkElement()
@@ -37,7 +40,7 @@ namespace Windows.UI.Xaml
 			Initialize();
 		}
 
-		public override void LayoutSubviews()
+		public override void Layout()
 		{
 			try
 			{
@@ -114,7 +117,7 @@ namespace Windows.UI.Xaml
 			return result.LogicalToPhysicalPixels();
 		}
 
-		public override CGSize SizeThatFits(CGSize size)
+		public CGSize SizeThatFits(CGSize size)
 		{
 			try
 			{
@@ -128,7 +131,7 @@ namespace Windows.UI.Xaml
 				}
 				else
 				{
-					return _lastMeasure = base.SizeThatFits(size);
+					return _lastMeasure = CGSize.Empty;
 				}
 			}
 			finally

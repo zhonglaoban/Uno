@@ -13,28 +13,8 @@ namespace Windows.UI.Xaml.Controls
 		// Skipping already declared property Child
 		// Skipping already declared property BorderThickness
 		// Skipping already declared property BorderBrush
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.UI.Xaml.Media.Brush Background
-		{
-			get
-			{
-				return (global::Windows.UI.Xaml.Media.Brush)this.GetValue(BackgroundProperty);
-			}
-			set
-			{
-				this.SetValue(BackgroundProperty, value);
-			}
-		}
-		#endif
-		#if false || false || false || false || __MACOS__
-		[global::Uno.NotImplemented]
-		public static global::Windows.UI.Xaml.DependencyProperty BackgroundProperty { get; } = 
-		Windows.UI.Xaml.DependencyProperty.Register(
-			"Background", typeof(global::Windows.UI.Xaml.Media.Brush), 
-			typeof(global::Windows.UI.Xaml.Controls.Border), 
-			new FrameworkPropertyMetadata(default(global::Windows.UI.Xaml.Media.Brush)));
-		#endif
+		// Skipping already declared property Background
+		// Skipping already declared property BackgroundProperty
 		// Skipping already declared property BorderBrushProperty
 		// Skipping already declared property BorderThicknessProperty
 		// Skipping already declared property ChildTransitionsProperty
