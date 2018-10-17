@@ -627,6 +627,7 @@ namespace Uno.UWPSyncGenerator
 				"Windows.UI.Xaml.Media.LinearGradientBrush",
 				"Windows.UI.Xaml.Data.RelativeSource",
 				"Windows.UI.Xaml.Controls.Primitives.CarouselPanel",
+				"Windows.UI.Xaml.Controls.MediaPlayerPresenter",
 			};
 
 			var isSkipped = skippedTypes.Contains(type.BaseType?.ToString());

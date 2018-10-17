@@ -41,7 +41,7 @@ namespace UIKit
 namespace AppKit
 #endif
 {
-	public static class _ViewExtensions
+	public static class UIViewExtensions
 	{
 		public static bool HasParent(this _View view)
 		{

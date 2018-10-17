@@ -2835,7 +2835,7 @@ namespace Uno.UI.SourceGenerators.XamlGenerator
                 {
                     if (type.Kind == SymbolKind.ErrorType)
                     {
-                        throw new InvalidOperationException($"Unable to resolve {type} (SymbolKind is ErrorType)");
+                        throw new InvalidOperationException($"Unable to resolve {type} (SymbolKind is ErrorType) {type}");
                     }
 
                     var resolvedType = type;

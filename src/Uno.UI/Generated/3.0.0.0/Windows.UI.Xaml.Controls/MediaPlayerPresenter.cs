@@ -5,7 +5,7 @@ namespace Windows.UI.Xaml.Controls
 	#if false || false || NET46 || __WASM__ || __MACOS__
 	[global::Uno.NotImplemented]
 	#endif
-	public  partial class MediaPlayerPresenter : global::Windows.UI.Xaml.FrameworkElement
+	public  partial class MediaPlayerPresenter
 	{
 		#if false || false || NET46 || __WASM__ || __MACOS__
 		[global::Uno.NotImplemented]
