@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Uno.Logging;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Automation.Peers;
 
 namespace Windows.UI.Xaml.Controls
 {
@@ -251,6 +252,16 @@ namespace Windows.UI.Xaml.Controls
 
 			return size;
 		}
+		public AutomationPeer GetAutomationPeer()
+		{
+			return null;
+		}
+
+		public string GetAccessibilityInnerText()
+		{
+			return null;
+		}
+
 	}
 }
 

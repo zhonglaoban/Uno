@@ -1006,7 +1006,8 @@ namespace <#= mixin.NamespaceName #>
 		
 		#region AutomationPeer
 
-		private AutomationPeer _automationPeer;
+		// TODO for accessibility
+		// private AutomationPeer _automationPeer;
 
 #if !<#= mixin.HasAutomationPeer #>
 		private AutomationPeer OnCreateAutomationPeerOverride()
@@ -1020,51 +1021,53 @@ namespace <#= mixin.NamespaceName #>
 		}
 #endif
 
-		protected virtual AutomationPeer OnCreateAutomationPeer()
-		{
-			if (OnCreateAutomationPeerOverride() is AutomationPeer automationPeer)
-			{
-				return automationPeer;
-			}
+		// TODO for accessibility
+		// protected virtual AutomationPeer OnCreateAutomationPeer()
+		// {
+		// 	if (OnCreateAutomationPeerOverride() is AutomationPeer automationPeer)
+		// 	{
+		// 		return automationPeer;
+		// 	}
+		// 
+		// 	if (AutomationProperties.GetName(this) is string name && !string.IsNullOrEmpty(name))
+		// 	{
+		// 		return new FrameworkElementAutomationPeer(this);
+		// 	}
+		// 
+		// 	return null;
+		// }
 
-			if (AutomationProperties.GetName(this) is string name && !string.IsNullOrEmpty(name))
-			{
-				return new FrameworkElementAutomationPeer(this);
-			}
+		// public virtual string GetAccessibilityInnerText() // TODO: internal
+		// {
+		// 	if (GetAccessibilityInnerTextOverride() is string innerText)
+		// 	{
+		// 		return innerText;
+		// 	}
+		// 
+		// 	return null;
+		// }
+		// 
+		// public AutomationPeer GetAutomationPeer() // TODO: internal
+		// {
+		// 	if (_automationPeer == null)
+		// 	{
+		// 		_automationPeer = OnCreateAutomationPeer();
+		// 	}
+		// 
+		// 	return _automationPeer;
+		// }
 
-			return null;
-		}
-
-		public virtual string GetAccessibilityInnerText() // TODO: internal
-		{
-			if (GetAccessibilityInnerTextOverride() is string innerText)
-			{
-				return innerText;
-			}
-
-			return null;
-		}
-
-		public AutomationPeer GetAutomationPeer() // TODO: internal
-		{
-			if (_automationPeer == null)
-			{
-				_automationPeer = OnCreateAutomationPeer();
-			}
-
-			return _automationPeer;
-		}
-
-		public override bool AccessibilityActivate()
-		{
-			return GetAutomationPeer()?.AccessibilityActivate() ?? false;
-		}
-
-		public override bool IsAccessibilityElement
-		{
-			get => GetAutomationPeer()?.UpdateAccessibilityElement() ?? false;
-			set => base.IsAccessibilityElement = value;
-		}
+		// TODO for accessibility
+		// public override bool AccessibilityActivate()
+		// {
+		// 	return GetAutomationPeer()?.AccessibilityActivate() ?? false;
+		// }
+		// 
+		// public override bool IsAccessibilityElement
+		// {
+		// 	get => GetAutomationPeer()?.UpdateAccessibilityElement() ?? false;
+		// 	set => base.IsAccessibilityElement = value;
+		// }
 		
 		#endregion
 	}

@@ -4,12 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Uno.Extensions;
-using UIKit;
 using CoreAnimation;
 using Uno.Disposables;
 using Windows.UI.Xaml.Media;
 using Windows.Foundation;
 using Uno.Logging;
+
+#if __IOS__
+using UIKit;
+using _Color = UIKit.UIColor;
+#elif __MACOS__
+using _Color = AppKit.NSColor;
+#endif
 
 namespace Windows.UI.Xaml.Shapes
 {
@@ -22,7 +28,9 @@ namespace Windows.UI.Xaml.Shapes
 		public ArbitraryShapeBase()
 		{
 
+#if __IOS__
 			ClipsToBounds = true;
+#endif
 		}
 
 		protected override void OnBackgroundChanged(DependencyPropertyChangedEventArgs e)
@@ -159,7 +167,7 @@ namespace Windows.UI.Xaml.Shapes
 					Path = path,
 					Frame = Bounds,
 					// We only use the fill color to create the mask area
-					FillColor = UIColor.White.CGColor,
+					FillColor = _Color.White.CGColor,
 				};
 
 				CreateImageBrushLayers(

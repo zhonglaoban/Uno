@@ -22,9 +22,13 @@ namespace Windows.UI.Xaml.Input
 
 		public PointerPoint GetCurrentPoint(UIElement relativeTo)
 		{
+#if __IOS__
 			var point = (_nativeTouches.AnyObject as NSTouch).LocationInView(relativeTo);
 
 			return new PointerPoint(point);
+#elif __MACOS__
+			throw new NotImplementedException();
+#endif
 		}
 	}
 }

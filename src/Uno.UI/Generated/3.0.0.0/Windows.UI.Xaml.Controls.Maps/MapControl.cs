@@ -138,23 +138,9 @@ namespace Windows.UI.Xaml.Controls.Maps
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.GetLocationFromOffset(Windows.Foundation.Point, out Windows.Devices.Geolocation.Geopoint)
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.GetOffsetFromLocation(Windows.Devices.Geolocation.Geopoint, out Windows.Foundation.Point)
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.IsLocationInView(Windows.Devices.Geolocation.Geopoint, out bool)
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.Foundation.IAsyncOperation<bool> TrySetViewBoundsAsync( global::Windows.Devices.Geolocation.GeoboundingBox bounds,  global::Windows.UI.Xaml.Thickness? margin,  global::Windows.UI.Xaml.Controls.Maps.MapAnimationKind animation)
-		{
-			throw new global::System.NotImplementedException("The member IAsyncOperation<bool> MapControl.TrySetViewBoundsAsync(GeoboundingBox bounds, Thickness? margin, MapAnimationKind animation) is not implemented in Uno.");
-		}
-		#endif
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync(Windows.Devices.Geolocation.Geopoint)
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync(Windows.Devices.Geolocation.Geopoint, double?)
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync(Windows.Devices.Geolocation.Geopoint, double?, double?, double?)
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.Foundation.IAsyncOperation<bool> TrySetViewAsync( global::Windows.Devices.Geolocation.Geopoint center,  double? zoomLevel,  double? heading,  double? desiredPitch,  global::Windows.UI.Xaml.Controls.Maps.MapAnimationKind animation)
-		{
-			throw new global::System.NotImplementedException("The member IAsyncOperation<bool> MapControl.TrySetViewAsync(Geopoint center, double? zoomLevel, double? heading, double? desiredPitch, MapAnimationKind animation) is not implemented in Uno.");
-		}
-		#endif
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.BusinessLandmarksVisible.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.BusinessLandmarksVisible.set
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.TransitFeaturesVisible.get
@@ -202,33 +188,12 @@ namespace Windows.UI.Xaml.Controls.Maps
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomInAsync()
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomOutAsync()
 		// Skipping already declared method Windows.UI.Xaml.Controls.Maps.MapControl.TryZoomToAsync(double)
-		#if __ANDROID__ || false || false || false || false
-		[global::Uno.NotImplemented]
-		public  global::Windows.Foundation.IAsyncOperation<bool> TrySetSceneAsync( global::Windows.UI.Xaml.Controls.Maps.MapScene scene)
-		{
-			throw new global::System.NotImplementedException("The member IAsyncOperation<bool> MapControl.TrySetSceneAsync(MapScene scene) is not implemented in Uno.");
-		}
-		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.Foundation.IAsyncOperation<bool> TrySetSceneAsync( global::Windows.UI.Xaml.Controls.Maps.MapScene scene,  global::Windows.UI.Xaml.Controls.Maps.MapAnimationKind animationKind)
-		{
-			throw new global::System.NotImplementedException("The member IAsyncOperation<bool> MapControl.TrySetSceneAsync(MapScene scene, MapAnimationKind animationKind) is not implemented in Uno.");
-		}
-		#endif
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.MapRightTapped.add
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.MapRightTapped.remove
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.BusinessLandmarksEnabled.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.BusinessLandmarksEnabled.set
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.TransitFeaturesEnabled.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.TransitFeaturesEnabled.set
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
-		[global::Uno.NotImplemented]
-		public  global::Windows.Devices.Geolocation.Geopath GetVisibleRegion( global::Windows.UI.Xaml.Controls.Maps.MapVisibleRegionKind region)
-		{
-			throw new global::System.NotImplementedException("The member Geopath MapControl.GetVisibleRegion(MapVisibleRegionKind region) is not implemented in Uno.");
-		}
-		#endif
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.MapProjection.get
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.MapProjection.set
 		// Forced skipping of method Windows.UI.Xaml.Controls.Maps.MapControl.StyleSheet.get

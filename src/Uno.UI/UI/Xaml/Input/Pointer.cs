@@ -53,14 +53,12 @@ namespace Windows.UI.Xaml.Input
 		{
 			switch (uiEvent.Type)
 			{
-				case AppKit.NSEventType.Touches:
-				case AppKit.NSEventType.Motion:
+				case AppKit.NSEventType.DirectTouch:
 					PointerDeviceType = PointerDeviceType.Touch;
 					break;
 
-				case AppKit.NSEventType.Presses:
-				case AppKit.NSEventType.RemoteControl:
-					PointerDeviceType = PointerDeviceType.Pen;
+				case AppKit.NSEventType.MouseMoved:
+					PointerDeviceType = PointerDeviceType.Mouse;
 					break;
 			}
 		}

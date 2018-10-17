@@ -217,6 +217,7 @@
 		<MixinInput Include=".\Mixins\Wasm\VisualStatesMixins.tt" />
 		<MixinInput Include=".\Mixins\net46\VisualStatesMixins.tt" />
 		<MixinInput Include=".\UI\Xaml\IFrameworkElementImplementation.iOS.tt" />
+		<MixinInput Include=".\UI\Xaml\IFrameworkElementImplementation.macOS.tt" />
 
 		<MixinOutput Include=".\Mixins\Android\BaseActivity.Callbacks.g.cs" />
 		<MixinOutput Include=".\Mixins\Android\FrameworkElementMixins.g.cs" />

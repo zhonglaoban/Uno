@@ -2,7 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
+#if __IOS__
 using UIKit;
+#elif __MACOS__
+using AppKit;
+using UIView = AppKit.NSView;
+#endif
 
 namespace Windows.UI.Xaml
 {
@@ -24,9 +30,14 @@ namespace Windows.UI.Xaml
 
 				var newContent = ContentBuilder();
 
+#if __IOS__
 				currentSuperview?.InsertSubview(newContent, currentPosition);
-				
 				return newContent;				
+#elif __MACOS__
+				// macOS TODO
+				// currentSuperview?.InsertSubview(newContent, currentPosition);
+				throw new NotImplementedException();
+#endif
 			}
 
 			return null;

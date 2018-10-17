@@ -3,22 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-#if XAMARIN_IOS_UNIFIED
 using Foundation;
-using UIKit;
 using CoreAnimation;
 using CoreGraphics;
-#elif XAMARIN_IOS
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-using MonoTouch.CoreAnimation;
-using CGRect = System.Drawing.RectangleF;
-using nfloat = System.Single;
-using CGPoint = System.Drawing.PointF;
-using nint = System.Int32;
-using CGSize = System.Drawing.SizeF;
-#endif
 
 namespace Windows.UI.Xaml.Shapes
 {

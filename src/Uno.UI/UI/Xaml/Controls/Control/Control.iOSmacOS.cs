@@ -2,7 +2,6 @@
 using System.Drawing;
 using Uno.Extensions;
 using Uno.UI;
-using Uno.UI.Views.Controls;
 using Uno.UI.DataBinding;
 using System.Linq;
 using Windows.UI.Xaml.Input;
@@ -13,16 +12,12 @@ using Color = UIKit.UIColor;
 using Font = UIKit.UIFont;
 using UIKit;
 using CoreGraphics;
-#elif XAMARIN_IOS
-using View = MonoTouch.UIKit.UIView;
-using Color = MonoTouch.UIKit.UIColor;
-using Font = MonoTouch.UIKit.UIFont;
-using MonoTouch.UIKit;
-using CGRect = System.Drawing.RectangleF;
-using nfloat = System.Single;
-using CGPoint = System.Drawing.PointF;
-using nint = System.Int32;
-using CGSize = System.Drawing.SizeF;
+#elif __MACOS__
+using View = AppKit.NSView;
+using Color = AppKit.NSColor;
+using Font = AppKit.NSFont;
+using AppKit;
+using CoreGraphics;
 #endif
 
 
@@ -56,7 +51,7 @@ namespace Windows.UI.Xaml.Controls
 			}
 		}
 
-		partial void RegisterSubView(UIView child)
+		partial void RegisterSubView(View child)
 		{
 			if(Subviews.Length != 0)
 			{
@@ -70,12 +65,17 @@ namespace Windows.UI.Xaml.Controls
 				// prevents the clipping to be set to the proper size.
 
 				child.Frame = Bounds;
+#if __IOS__
 				child.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+#elif __MACOS__
+				child.AutoresizingMask = NSViewResizingMask.WidthSizable | NSViewResizingMask.HeightSizable;
+#endif
 			}
 
 			AddSubview(child);
 		}
 
+#if __IOS__
 		internal override void OnPointerPressedInternal(object sender, PointerRoutedEventArgs args)
 		{
 			// Call virtual method first to give subclasses a chance to set handled to true
@@ -120,6 +120,7 @@ namespace Windows.UI.Xaml.Controls
 			OnPointerCanceled(args);
 			base.OnPointerCanceledInternal(sender, args);
 		}
+#endif
 
 		protected virtual bool RequestFocus(FocusState state)
 		{

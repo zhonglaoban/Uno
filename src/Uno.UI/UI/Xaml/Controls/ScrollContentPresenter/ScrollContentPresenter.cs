@@ -49,7 +49,11 @@ namespace Windows.UI.Xaml.Controls
 #if XAMARIN
 		private View _content;
 
-		public View Content
+		public
+#if __MACOS__
+			new
+#endif
+			View Content
 		{
 			get { return _content; }
 			set

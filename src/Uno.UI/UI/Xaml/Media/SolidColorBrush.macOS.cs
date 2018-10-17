@@ -14,7 +14,7 @@ namespace Windows.UI.Xaml.Media
 		/// <summary>
 		/// Blends the Color set on the SolidColorBrush with its Opacity. Should generally be used for rendering rather than the Color property itself.
 		/// </summary>
-		internal CGColor ColorWithOpacity
+		internal Color ColorWithOpacity
 		{
 			get; set;
 		}
@@ -28,7 +28,7 @@ namespace Windows.UI.Xaml.Media
 		{
             newColor.A = (byte)(newColor.A * opacity);
 
-			ColorWithOpacity = new CGColor(newColor.R, newColor.G, newColor.B, newColor.A);
+			ColorWithOpacity = newColor;
 		}
 	}
 }

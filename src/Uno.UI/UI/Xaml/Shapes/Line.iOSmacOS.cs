@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using CoreAnimation;
 using CoreGraphics;
-using UIKit;
 using Uno.Disposables;
 using Uno.Media;
 using Windows.Foundation;
@@ -30,7 +29,9 @@ namespace Windows.UI.Xaml.Shapes
 
 		partial void InitializePartial()
 		{
+#if __IOS__
 			ClipsToBounds = false;
+#endif
 		}
 	}
 }

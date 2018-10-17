@@ -26,7 +26,6 @@
 		<!-- macOS -->
 		<ExcludeXamlNamespaces Condition="'$(XamarinProjectType)'=='macos'" Include="macos" />
 		<ExcludeXamlNamespaces Condition="'$(XamarinProjectType)'=='macos'" Include="not_ios" />
-		<ExcludeXamlNamespaces Condition="'$(XamarinProjectType)'=='macos'" Include="not_android" />
 		<!-- Android -->
 		<ExcludeXamlNamespaces Condition="'$(XamarinProjectType)'=='android'" Include="ios" />
 		<ExcludeXamlNamespaces Condition="'$(XamarinProjectType)'=='android'" Include="not_android" />

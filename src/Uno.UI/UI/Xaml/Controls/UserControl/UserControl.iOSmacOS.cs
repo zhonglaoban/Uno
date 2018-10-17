@@ -1,11 +1,12 @@
-﻿
-#if XAMARIN_IOS_UNIFIED
-using System;
+﻿using System;
 using System.ComponentModel;
-using UIKit;
 using Windows.UI.Xaml.Markup;
-#elif XAMARIN_IOS
-using MonoTouch.UIKit;
+
+#if XAMARIN_IOS_UNIFIED
+using UIKit;
+#elif __MACOS__
+using AppKit;
+using UIView = AppKit.NSView;
 #endif
 
 namespace Windows.UI.Xaml.Controls

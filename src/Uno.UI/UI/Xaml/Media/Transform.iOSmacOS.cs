@@ -3,10 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using UIKit;
 using CoreGraphics;
 using System.Drawing;
 using Uno.UI;
+using CoreAnimation;
+
+#if __IOS__
+using _View = UIKit.UIView;
+#elif __MACOS__
+using _View = AppKit.NSView;
+#endif
 
 namespace Windows.UI.Xaml.Media
 {
@@ -44,16 +50,27 @@ namespace Windows.UI.Xaml.Media
 		/// <param name="size">The size of the view.</param>
 		/// <param name="withCenter">Whether Center (CenterX/CenterY) information should be part of the transform. Providing false is useful if a transform is applied to an element Center information is already part of the </param>
 		/// <returns></returns>
+#if __IOS__
 		internal virtual CGAffineTransform ToNativeTransform(CGSize size, bool withCenter = true)
 		{
 			throw new NotImplementedException(nameof(ToNativeTransform) + " not implemented for " + this.GetType().ToString());
 		}
+#elif __MACOS__
+		internal virtual CATransform3D ToNativeTransform(CGSize size, bool withCenter = true)
+		{
+			throw new NotImplementedException(nameof(ToNativeTransform) + " not implemented for " + this.GetType().ToString());
+		}
+#endif
 
 		internal static double ToRadians(double angle) => MathEx.ToRadians(angle);
 
-		partial void OnDetachedFromViewPartial(UIView view)
+		partial void OnDetachedFromViewPartial(_View view)
 		{
+#if __IOS__
 			view.Transform = CGAffineTransform.MakeIdentity();
+#elif __MACOS__
+			view.Layer.Transform = CATransform3D.Identity;
+#endif
 
 			if (view is FrameworkElement fe)
 			{
@@ -61,8 +78,11 @@ namespace Windows.UI.Xaml.Media
 			}
 		}
 
-		partial void OnAttachedToViewPartial(UIView view)
+		partial void OnAttachedToViewPartial(_View view)
 		{
+#if __MACOS__
+			view.WantsLayer = true;
+#endif
 			if (view is FrameworkElement fe)
 			{
 				fe.SizeChanged += Fe_SizeChanged;
@@ -80,8 +100,16 @@ namespace Windows.UI.Xaml.Media
 			{
 				var size = GetViewSize(View);
 				SetAnchorPoint(GetAnchorPoint(size), View);
+
+#if __IOS__
 				// Center (CenterX/CenterY) is already part of AnchorPoint, we don't want to apply it twice.
 				View.Transform = ToNativeTransform(size, withCenter: false);
+#elif __MACOS__
+				// Center (CenterX/CenterY) is already part of AnchorPoint, we don't want to apply it twice.
+				View.Layer.Transform = ToNativeTransform(size, withCenter: false);
+#endif
+
+
 			}
 		}
 
@@ -91,13 +119,20 @@ namespace Windows.UI.Xaml.Media
 		/// <remarks>
 		/// Source: https://stackoverflow.com/a/5666430
 		/// </remarks>
-		private static void SetAnchorPoint(CGPoint anchorPoint, UIView view)
+		private static void SetAnchorPoint(CGPoint anchorPoint, _View view)
 		{
 			var newPoint = new CGPoint(view.Bounds.Size.Width * anchorPoint.X, view.Bounds.Size.Height * anchorPoint.Y);
 			var oldPoint = new CGPoint(view.Bounds.Size.Width * view.Layer.AnchorPoint.X, view.Bounds.Size.Height * view.Layer.AnchorPoint.Y);
 
+#if __IOS__
 			newPoint = view.Transform.TransformPoint(newPoint);
 			oldPoint = view.Transform.TransformPoint(oldPoint);
+#elif __MACOS__
+			// macOS TODO
+			//newPoint = view.Layer.Transform.TransformPoint(newPoint);
+			//oldPoint = view.Layer.Transform.TransformPoint(oldPoint);
+#endif
+
 
 			var position = view.Layer.Position;
 
@@ -114,7 +149,7 @@ namespace Windows.UI.Xaml.Media
 		/// <summary>
 		/// Get size of the view before any transform is applied.
 		/// </summary>
-		protected static CGSize GetViewSize(UIView view)
+		protected static CGSize GetViewSize(_View view)
 		{
 			CGSize? appliedFrame = (view as IFrameworkElement)?.AppliedFrame.Size;
 			return appliedFrame ?? view.Frame.Size;

@@ -3,7 +3,6 @@ using Uno.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UIKit;
 using Windows.Foundation;
 
 namespace Windows.UI.Xaml.Shapes

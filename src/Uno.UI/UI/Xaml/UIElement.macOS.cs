@@ -22,16 +22,12 @@ namespace Windows.UI.Xaml
 {
 	public partial class UIElement : BindableNSView
 	{
-		private bool _areGesturesAttached = false;
-
 #if DEBUG
 		/// <summary>
 		/// Provides the ability to disable clipping for an object provided by the selector.
 		/// </summary>
 		public static Func<object, bool> CanClipSelector { get; set; }
 #endif
-
-		private static Dictionary<NSView, CALayer> _debugLayers;
 
 		internal bool IsPointerCaptured { get; set; }
 
@@ -169,7 +165,11 @@ namespace Windows.UI.Xaml
 
 		internal Windows.Foundation.Point GetPosition(Point position, global::Windows.UI.Xaml.UIElement relativeTo)
 		{
+#if __IOS__
 			return relativeTo.ConvertPointToCoordinateSpace(position, relativeTo);
+#elif __MACOS__
+			throw new NotImplementedException();
+#endif
 		}
 
 		private CGRect ToCGRect(Rect rect)
@@ -265,7 +265,7 @@ namespace Windows.UI.Xaml
 			return value;
 		}
 
-		#region DoubleTapped event
+#region DoubleTapped event
 		private void RegisterDoubleTapped(DoubleTappedEventHandler handler)
 		{
 			LogRegisterPointerCanceledNotImplemented();
@@ -275,9 +275,9 @@ namespace Windows.UI.Xaml
 		{
 			LogRegisterPointerCanceledNotImplemented();
 		}
-		#endregion
+#endregion
 
-		#region PointerCanceled event
+#region PointerCanceled event
 		private void RegisterPointerCanceled(PointerEventHandler handler)
 		{
 			LogRegisterPointerCanceledNotImplemented();
@@ -287,9 +287,9 @@ namespace Windows.UI.Xaml
 		{
 			LogUnregisterPointerCanceledNotImplemented();
 		}
-		#endregion
+#endregion
 
-		#region PointerExited event
+#region PointerExited event
 		private void RegisterPointerExited(PointerEventHandler handler)
 		{
 			LogRegisterPointerExitedNotImplemented();
@@ -299,9 +299,9 @@ namespace Windows.UI.Xaml
 		{
 			LogUnRegisterPointerExitedNotImplemented();
 		}
-		#endregion
+#endregion
 
-		#region PointerPressed event
+#region PointerPressed event
 		private void RegisterPointerPressed(PointerEventHandler handler)
 		{
 			LogRegisterPointerPressedNotImplemented();
@@ -311,9 +311,9 @@ namespace Windows.UI.Xaml
 		{
 			LogUnRegisterPointerPressedNotImplemented();
 		}
-		#endregion
+#endregion
 
-		#region PointerReleased event
+#region PointerReleased event
 		private void RegisterPointerReleased(PointerEventHandler handler)
 		{
 			LogRegisterPointerReleasedNotImplemented();
@@ -323,9 +323,9 @@ namespace Windows.UI.Xaml
 		{
 			LogUnRegisterPointerReleasedNotImplemented();
 		}
-		#endregion
+#endregion
 
-		#region Tapped event
+#region Tapped event
 		private void RegisterTapped(TappedEventHandler handler)
 		{
 			LogRegisterPointerReleasedNotImplemented();
@@ -335,7 +335,7 @@ namespace Windows.UI.Xaml
 		{
 			LogUnRegisterPointerReleasedNotImplemented();
 		}
-		#endregion
+#endregion
 
 		internal void RaiseTapped(TappedRoutedEventArgs args) => LogUnRegisterPointerReleasedNotImplemented();
 	}

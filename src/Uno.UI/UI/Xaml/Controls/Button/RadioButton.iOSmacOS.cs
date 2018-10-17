@@ -3,7 +3,6 @@ using System.Linq;
 using Uno.Extensions;
 using Uno;
 using Windows.UI.Xaml.Controls;
-using Uno.UI.Views.Controls;
 using System;
 using Uno.Disposables;
 using System.Collections.Generic;

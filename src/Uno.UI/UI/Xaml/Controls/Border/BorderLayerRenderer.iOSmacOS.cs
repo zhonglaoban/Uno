@@ -12,6 +12,9 @@ using Uno.UI.Extensions;
 
 #if __IOS__
 using UIKit;
+using _View = UIKit.UIView;
+using _Color = UIKit.UIColor;
+using _Image = UIKit.UIImage;
 #elif __MACOS__
 using AppKit;
 using _View = AppKit.NSView;

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using Windows.Foundation;
 using Uno.Logging;
 using Uno.UI;
+using AppKit;
 
 namespace Windows.UI.Xaml
 {
@@ -150,7 +151,7 @@ namespace Windows.UI.Xaml
 
 		private bool IsTopLevelXamlView()
 		{
-			UIView parent = this;
+			NSView parent = this;
 			while (parent != null)
 			{
 				parent = parent.Superview;

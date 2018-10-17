@@ -13,10 +13,11 @@ using Windows.UI.Xaml;
 using System.ComponentModel;
 using Windows.UI.Xaml.Media;
 using AppKit;
+using System.Collections;
 
 namespace Uno.UI.Controls
 {
-	public partial class BindableNSView : NSView, INotifyPropertyChanged, DependencyObject, IShadowChildrenProvider
+	public partial class BindableNSView : NSView, INotifyPropertyChanged, DependencyObject, IShadowChildrenProvider, IEnumerable
 	{
 		private List<NSView> _shadowChildren = new List<NSView>();
 
@@ -111,5 +112,7 @@ namespace Uno.UI.Controls
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+
+		public IEnumerator GetEnumerator() => Subviews.GetEnumerator();
 	}
 }
