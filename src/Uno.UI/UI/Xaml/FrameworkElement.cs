@@ -18,6 +18,9 @@ using View = Android.Views.View;
 #elif XAMARIN_IOS_UNIFIED
 using View = UIKit.UIView;
 using UIKit;
+#elif __MACOS__
+using View = Windows.UI.Xaml.UIElement;
+using Color = Windows.UI.Color;
 #else
 using Color = System.Drawing.Color;
 using View = Windows.UI.Xaml.UIElement;

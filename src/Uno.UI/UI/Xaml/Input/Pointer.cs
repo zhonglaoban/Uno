@@ -48,6 +48,22 @@ namespace Windows.UI.Xaml.Input
 					break;
 			}
 		}
+#elif __MACOS__
+		internal Pointer(AppKit.NSEvent uiEvent)
+		{
+			switch (uiEvent.Type)
+			{
+				case AppKit.NSEventType.Touches:
+				case AppKit.NSEventType.Motion:
+					PointerDeviceType = PointerDeviceType.Touch;
+					break;
+
+				case AppKit.NSEventType.Presses:
+				case AppKit.NSEventType.RemoteControl:
+					PointerDeviceType = PointerDeviceType.Pen;
+					break;
+			}
+		}
 #elif __WASM__
 		internal Pointer(uint id, PointerDeviceType type)
 		{

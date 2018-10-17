@@ -29,6 +29,13 @@ using Font = UIKit.UIFont;
 using CoreGraphics;
 using _Size = Windows.Foundation.Size;
 using Point = Windows.Foundation.Point;
+#elif __MACOS__
+using View = AppKit.NSView;
+using Color = AppKit.NSColor;
+using Font = AppKit.NSFont;
+using CoreGraphics;
+using _Size = Windows.Foundation.Size;
+using Point = Windows.Foundation.Point;
 #else
 using nint = System.Int32;
 using nfloat = System.Double;

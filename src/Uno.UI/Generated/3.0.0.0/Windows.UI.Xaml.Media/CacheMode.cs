@@ -2,12 +2,12 @@
 #pragma warning disable 114 // new keyword hiding
 namespace Windows.UI.Xaml.Media
 {
-	#if false || false || false || false
+	#if __ANDROID__ || __IOS__ || NET46 || __WASM__ || __MACOS__
 	[global::Uno.NotImplemented]
 	#endif
 	public  partial class CacheMode : global::Windows.UI.Xaml.DependencyObject
 	{
-		#if false || false || false || false
+		#if __ANDROID__ || false || false || false || __MACOS__
 		[global::Uno.NotImplemented]
 		protected CacheMode() : base()
 		{
