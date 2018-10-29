@@ -654,7 +654,7 @@ namespace Windows.UI.Xaml
 
 		partial void InitializeCapture();
 
-		internal bool IsPointerCaptured { get; set; }
+		internal bool IsPointerCaptured => _pointCaptures.Any();
 
 		public int MeasureCallCount { get; protected set; }
 		public int ArrangeCallCount { get; protected set; }
@@ -947,7 +947,7 @@ namespace Windows.UI.Xaml
 		}
 
 		private const string LeftPointerEventFilter =
-			"evt ? evt.eventPhase === 3 && (!evt.button || evt.button === 0) : false";
+			"evt ? evt.eventPhase === 2 || evt.eventPhase === 3 && (!evt.button || evt.button === 0) : false";
 
 		private const string PointerEventExtractor =
 			"evt ? \"\"+evt.pointerId+\";\"+evt.clientX+\";\"+evt.clientY+\";\"+(evt.ctrlKey?\"1\":\"0\")+\";\"+(evt.shiftKey?\"1\":\"0\")+\";\"+evt.button+\";\"+evt.pointerType : \"\"";
@@ -956,7 +956,7 @@ namespace Windows.UI.Xaml
 			"(evt instanceof KeyboardEvent) ? evt.key : \"0\"";
 
 		private const string DefaultEventFilter =
-			"evt ? evt.eventPhase === 3 : false";
+			"evt ? evt.eventPhase === 2 || evt.eventPhase === 3 : false";
 
 		private PointerRoutedEventArgs PayloadToPointerArgs(string payload)
 		{
