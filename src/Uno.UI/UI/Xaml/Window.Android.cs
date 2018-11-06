@@ -1,4 +1,5 @@
 #if XAMARIN_ANDROID
+using System;
 using Android.App;
 using Android.Util;
 using Android.Views;
@@ -11,17 +12,43 @@ using Windows.UI.Xaml.Controls;
 namespace Windows.UI.Xaml
 {
 	public sealed partial class Window
+#if __ANDROID_28__
+		: Java.Lang.Object, View.IOnApplyWindowInsetsListener
+#endif
 	{
 		private static Window _current;
 		private Grid _main;
 		private Border _rootBorder;
 		private Border _fullWindow;
 		private UIElement _content;
+		private WindowInsets _windowInsets;
 
 		public Window()
 		{
 			Dispatcher = CoreDispatcher.Main;
 			CoreWindow = new CoreWindow();
+		}
+
+		public Thickness WindowInsets
+		{
+			get
+			{
+#if __ANDROID_28__
+				if (_windowInsets == null)
+				{
+#endif
+					return Thickness.Empty;
+#if __ANDROID_28__
+				}
+
+				return new Thickness(
+					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetLeft),
+					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetTop),
+					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetRight),
+					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetBottom)
+				);
+#endif
+			}
 		}
 
 		internal int SystemUiVisibility { get; set; }
@@ -49,10 +76,12 @@ namespace Windows.UI.Xaml
 					}
 				};
 
+
 				ApplicationActivity.Instance?.SetContentView(_main);
 			}
-			
+
 			_rootBorder.Child = _content = value;
+			_rootBorder.Child.SetOnApplyWindowInsetsListener(this);
 		}
 
 		private UIElement InternalGetContent()
@@ -78,11 +107,16 @@ namespace Windows.UI.Xaml
 			var statusBarHeight = GetLogicalStatusBarHeight();
 			var navigationBarHeight = GetLogicalNavigationBarHeight();
 
+			var leftPadding = WindowInsets.Left;
+			var topPadding = Math.Max(statusBarHeight, WindowInsets.Top);
+			var rightPadding = WindowInsets.Right;
+			var bottomPadding = Math.Max(navigationBarHeight, WindowInsets.Bottom);
+
 			var newVisibleBounds = new Rect(
-				x: newBounds.X,
-				y: newBounds.Y + statusBarHeight,
-				width: newBounds.Width,
-				height: newBounds.Height - statusBarHeight - navigationBarHeight
+				x: newBounds.X + leftPadding,
+				y: newBounds.Y + topPadding,
+				width: newBounds.Width - leftPadding - rightPadding,
+				height: newBounds.Height - topPadding - bottomPadding
 			);
 
 			var applicationView = ApplicationView.GetForCurrentView();
@@ -170,6 +204,15 @@ namespace Windows.UI.Xaml
 				_fullWindow.Child = element;
 			}
 		}
+
+#if __ANDROID_28__
+		public WindowInsets OnApplyWindowInsets(View v, WindowInsets insets)
+		{
+			_windowInsets = insets;
+
+			return insets;
+		}
+#endif
 	}
 }
 #endif

@@ -1,14 +1,12 @@
+using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.Views;
+using Uno.Disposables;
 using Uno.Extensions;
 using Uno.Logging;
-using Uno.UI.DataBinding;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
-using System;
-using Uno.Disposables;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
+using Fragment = Android.Support.V4.App.Fragment;
 
 namespace Uno.UI
 {
@@ -33,7 +31,9 @@ namespace Uno.UI
 		{
 			base.OnAttach(activity);
 
+#if !__ANDROID_28__
 			BinderAttachedToWindow();
+#endif
 		}
 #pragma warning restore 0672,618
 
@@ -41,7 +41,9 @@ namespace Uno.UI
 		{
 			base.OnDetach();
 
+#if !__ANDROID_28__
 			BinderDetachedFromWindow();
+#endif
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Android.OS.Bundle savedInstanceState)
