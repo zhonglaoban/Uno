@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
 	<PropertyGroup>
-		<TargetFrameworks>xamarinmac20;MonoAndroid80;xamarinios10;net46;netstandard2.0</TargetFrameworks>
-		<TargetFrameworksCI>MonoAndroid71;MonoAndroid80;xamarinios10;net46;netstandard2.0;xamarinmac20</TargetFrameworksCI>
+		<TargetFrameworks>xamarinmac20;MonoAndroid80;MonoAndroid90;xamarinios10;net46;netstandard2.0</TargetFrameworks>
+		<TargetFrameworksCI>MonoAndroid71;MonoAndroid80;MonoAndroid90;xamarinios10;net46;netstandard2.0;xamarinmac20</TargetFrameworksCI>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -180,7 +180,26 @@
 		<PackageReference Include="Xamarin.Android.Support.v7.RecyclerView" Version="26.1.0.1">
 			<PrivateAssets>none</PrivateAssets>
 		</PackageReference>
-	</ItemGroup> 
+	</ItemGroup>
+	
+	<ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90'">
+		<PackageReference Include="Xamarin.Android.Support.v4">
+			<Version>27.0.2.1</Version>
+			<PrivateAssets>none</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
+			<Version>27.0.2.1</Version>
+			<PrivateAssets>none</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
+			<Version>27.0.2.1</Version>
+			<PrivateAssets>none</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Xamarin.Android.Support.Fragment">
+			<Version>27.0.2.1</Version>
+			<PrivateAssets>none</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="xamarin.build.download" Version="0.4.9" />

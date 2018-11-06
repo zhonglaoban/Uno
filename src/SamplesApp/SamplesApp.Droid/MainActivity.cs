@@ -13,6 +13,12 @@ namespace SamplesApp.Droid
 		)]
 	public class MainActivity : Windows.UI.Xaml.ApplicationActivity
 	{
+		protected override void OnCreate(Bundle bundle)
+		{
+			base.OnCreate(bundle);
+
+			this.Window.AddFlags(WindowManagerFlags.Fullscreen | WindowManagerFlags.LayoutNoLimits | WindowManagerFlags.TranslucentNavigation);
+		}
 	}
 }
 

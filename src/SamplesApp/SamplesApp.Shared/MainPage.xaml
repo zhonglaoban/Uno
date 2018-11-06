@@ -7,9 +7,25 @@
 	  mc:Ignorable="d">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel>
-			<!-- Initiali sample structure to be replaced by the sample control -->
-			<Button Content="Navigation View" Click="OnNavigationView" />
-		</StackPanel>
+		<Border HorizontalAlignment="Stretch"
+				VerticalAlignment="Top"
+				Height="25"
+				Background="DarkSlateBlue" />
+
+		<Border HorizontalAlignment="Stretch"
+				VerticalAlignment="Bottom"
+				Height="25"
+				Background="OrangeRed" />
+
+		<Border HorizontalAlignment="Left"
+				VerticalAlignment="Stretch"
+				Width="25"
+				Background="DarkSeaGreen" />
+		
+		<Border HorizontalAlignment="Right"
+				VerticalAlignment="Stretch"
+				Width="25"
+				Background="GreenYellow" />
+
 	</Grid>
 </Page>
