@@ -31,9 +31,7 @@ namespace Uno.UI
 		{
 			base.OnAttach(activity);
 
-#if !__ANDROID_28__
 			BinderAttachedToWindow();
-#endif
 		}
 #pragma warning restore 0672,618
 
@@ -41,9 +39,7 @@ namespace Uno.UI
 		{
 			base.OnDetach();
 
-#if !__ANDROID_28__
 			BinderDetachedFromWindow();
-#endif
 		}
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Android.OS.Bundle savedInstanceState)
