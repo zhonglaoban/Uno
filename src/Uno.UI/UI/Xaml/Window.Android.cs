@@ -12,16 +12,12 @@ using Windows.UI.Xaml.Controls;
 namespace Windows.UI.Xaml
 {
 	public sealed partial class Window
-#if __ANDROID_28__
-		: Java.Lang.Object, View.IOnApplyWindowInsetsListener
-#endif
 	{
 		private static Window _current;
 		private Grid _main;
 		private Border _rootBorder;
 		private Border _fullWindow;
 		private UIElement _content;
-		private WindowInsets _windowInsets;
 
 		public Window()
 		{
@@ -29,25 +25,20 @@ namespace Windows.UI.Xaml
 			CoreWindow = new CoreWindow();
 		}
 
-		public Thickness WindowInsets
+		public WindowInsets LocalWindowInsets { get; set; }
+
+		public Thickness WindowInsetsThickness
 		{
 			get
 			{
-#if __ANDROID_28__
-				if (_windowInsets == null)
-				{
-#endif
-					return Thickness.Empty;
-#if __ANDROID_28__
-				}
-
-				return new Thickness(
-					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetLeft),
-					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetTop),
-					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetRight),
-					ViewHelper.PhysicalToLogicalPixels(_windowInsets.SystemWindowInsetBottom)
-				);
-#endif
+				return LocalWindowInsets != null
+				? new Thickness(
+					ViewHelper.PhysicalToLogicalPixels(LocalWindowInsets.SystemWindowInsetLeft),
+					ViewHelper.PhysicalToLogicalPixels(LocalWindowInsets.SystemWindowInsetTop),
+					ViewHelper.PhysicalToLogicalPixels(LocalWindowInsets.SystemWindowInsetRight),
+					ViewHelper.PhysicalToLogicalPixels(LocalWindowInsets.SystemWindowInsetBottom)
+				)
+				:Thickness.Empty;
 			}
 		}
 
@@ -81,7 +72,10 @@ namespace Windows.UI.Xaml
 			}
 
 			_rootBorder.Child = _content = value;
-			_rootBorder.Child.SetOnApplyWindowInsetsListener(this);
+
+#if __ANDROID_28__
+			_rootBorder.Child.SetOnApplyWindowInsetsListener(new WindowInsetsListener());
+#endif
 		}
 
 		private UIElement InternalGetContent()
@@ -115,10 +109,10 @@ namespace Windows.UI.Xaml
 			var statusBarHeight = GetLogicalStatusBarHeight();
 			var navigationBarHeight = GetLogicalNavigationBarHeight();
 
-			var leftPadding = WindowInsets.Left;
-			var topPadding = Math.Max(statusBarHeight, WindowInsets.Top);
-			var rightPadding = WindowInsets.Right;
-			var bottomPadding = Math.Max(navigationBarHeight, WindowInsets.Bottom);
+			var leftPadding = WindowInsetsThickness.Left;
+			var topPadding = Math.Max(statusBarHeight, WindowInsetsThickness.Top);
+			var rightPadding = WindowInsetsThickness.Right;
+			var bottomPadding = Math.Max(navigationBarHeight, WindowInsetsThickness.Bottom);
 
 			var newVisibleBounds = new Rect(
 				x: newBounds.X + leftPadding,
@@ -208,15 +202,6 @@ namespace Windows.UI.Xaml
 				_fullWindow.Child = element;
 			}
 		}
-
-#if __ANDROID_28__
-		public WindowInsets OnApplyWindowInsets(View v, WindowInsets insets)
-		{
-			_windowInsets = insets;
-
-			return insets;
-		}
-#endif
 	}
 }
 #endif
