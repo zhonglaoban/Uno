@@ -17,6 +17,12 @@ namespace SamplesApp.Droid
 		{
 			base.OnCreate(bundle);
 
+			var decorView = Window.DecorView;
+			var uiOptions = (int)decorView.SystemUiVisibility;
+
+			uiOptions |= (int)SystemUiFlags.HideNavigation | (int)SystemUiFlags.Fullscreen;
+			decorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+
 			this.Window.AddFlags(WindowManagerFlags.Fullscreen | WindowManagerFlags.LayoutNoLimits | WindowManagerFlags.TranslucentNavigation);
 		}
 	}
