@@ -50,7 +50,7 @@ namespace Uno.UI.SourceGenerators.DependencyObject
 				_androidViewSymbol = context.Compilation.GetTypeByMetadataName("Android.Views.View");
 				_javaObjectSymbol = context.Compilation.GetTypeByMetadataName("Java.Lang.Object");
 				_androidActivitySymbol = context.Compilation.GetTypeByMetadataName("Android.App.Activity");
-				_androidFragmentSymbol = context.Compilation.GetTypeByMetadataName("Android.App.Fragment");
+				_androidFragmentSymbol = context.Compilation.GetTypeByMetadataName("Android.Support.V4.App.Fragment");
 				_iFrameworkElementSymbol = context.Compilation.GetTypeByMetadataName(XamlConstants.Types.IFrameworkElement);
 			}
 
