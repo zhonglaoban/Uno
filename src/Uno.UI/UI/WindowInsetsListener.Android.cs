@@ -1,7 +1,4 @@
 ﻿#if __ANDROID_28__
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Android.Views;
 
 namespace Uno.UI
@@ -10,9 +7,12 @@ namespace Uno.UI
 	{
 		public WindowInsets OnApplyWindowInsets(View v, WindowInsets insets)
 		{
-			Windows.UI.Xaml.Window.Current.LocalWindowInsets = insets;
+			var consumedInsets = insets.ConsumeSystemWindowInsets();
 
-			return insets;
+			Windows.UI.Xaml.Window.Current.LocalWindowInsets = consumedInsets;
+			Windows.UI.Xaml.Window.Current.RaiseNativeSizeChanged();
+
+			return consumedInsets;
 		}
 	}
 }

@@ -118,6 +118,10 @@
       <Project>{528AE586-5DF3-4DAD-AA5C-F12F4D5E0605}</Project>
       <Name>Uno.Foundation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Uno.UI.Toolkit\Uno.UI.Toolkit.csproj">
+      <Project>{2eaf39e3-2ac9-457a-a5b2-47d6548799b3}</Project>
+      <Name>Uno.UI.Toolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Uno.UI\Uno.UI.csproj">
       <Project>{C6884723-81DB-43BD-924F-3FA367633E64}</Project>
       <Name>Uno.UI</Name>

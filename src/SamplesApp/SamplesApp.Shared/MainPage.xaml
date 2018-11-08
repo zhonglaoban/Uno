@@ -4,26 +4,31 @@
 	  xmlns:local="using:SamplesApp"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:toolkit="Uno.UI.Toolkit"
 	  mc:Ignorable="d">
 
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Border HorizontalAlignment="Stretch"
 				VerticalAlignment="Top"
+				toolkit:VisibleBoundsPadding.PaddingMask="All"
 				Height="25"
 				Background="DarkSlateBlue" />
 
 		<Border HorizontalAlignment="Stretch"
 				VerticalAlignment="Bottom"
+				toolkit:VisibleBoundsPadding.PaddingMask="All"
 				Height="25"
 				Background="OrangeRed" />
 
 		<Border HorizontalAlignment="Left"
 				VerticalAlignment="Stretch"
+				toolkit:VisibleBoundsPadding.PaddingMask="All"
 				Width="25"
 				Background="DarkSeaGreen" />
 		
 		<Border HorizontalAlignment="Right"
 				VerticalAlignment="Stretch"
+				toolkit:VisibleBoundsPadding.PaddingMask="All"
 				Width="25"
 				Background="GreenYellow" />
 
