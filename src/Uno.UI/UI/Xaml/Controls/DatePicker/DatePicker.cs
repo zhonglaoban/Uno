@@ -1,4 +1,4 @@
-﻿using Uno.Extensions;
+using Uno.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -111,6 +111,20 @@ namespace Windows.UI.Xaml.Controls
 		partial void OnMinYearChangedPartial();
 		#endregion
 
+		#region Property: DefaultDate
+		public static readonly DependencyProperty DefaultDateProperty = DependencyProperty.Register(
+			nameof(DefaultDate),
+			typeof(DateTimeOffset?),
+			typeof(DatePicker),
+			new PropertyMetadata(default(DateTimeOffset?)));
+
+		public DateTimeOffset? DefaultDate
+		{
+			get => (DateTimeOffset?)this.GetValue(DefaultDateProperty);
+			set => this.SetValue(DefaultDateProperty, value);
+		}
+		#endregion
+
 #if XAMARIN
 
 		#region Template parts
@@ -190,6 +204,7 @@ namespace Windows.UI.Xaml.Controls
 			BindToFlyout("Date");
 			BindToFlyout("MinYear");
 			BindToFlyout("MaxYear");
+			BindToFlyout("DefaultDate");
 		}
 
 		private void BindToFlyout(string propertyName)

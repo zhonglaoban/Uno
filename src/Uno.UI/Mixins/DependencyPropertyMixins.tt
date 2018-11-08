@@ -84,6 +84,7 @@
 				.Property("YearVisible", "bool", "true")
 				.Property("MaxYear", "DateTimeOffset", "DateTimeOffset.MaxValue")
 				.Property("MinYear", "DateTimeOffset", "DateTimeOffset.MinValue")
+				.Property("DefaultDate", "DateTimeOffset?", "null")
 			.Class("TimePickerFlyout")
 				.Property("Time", "TimeSpan", "DateTime.Now.TimeOfDay")
 				.Property("ClockIdentifier", "string", "Windows.Globalization.ClockIdentifiers.TwelveHour")

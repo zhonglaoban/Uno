@@ -1,4 +1,4 @@
-﻿#if XAMARIN_IOS
+#if XAMARIN_IOS
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -31,9 +31,13 @@ namespace Windows.UI.Xaml.Controls
 
 		private void DatePickerFlyout_Opening(object sender, EventArgs e)
 		{
+			var selectedDate = Date == (DateTimeOffset)DatePicker.DateProperty.GetFallbackDefaultValue()
+					? DefaultDate ?? Date
+					: Date;
+
 			if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
 			{
-				((DatePickerSelector)Content).Date = Date;
+				((DatePickerSelector)Content).Date = selectedDate;
 			}
 			else
 			{
@@ -42,7 +46,7 @@ namespace Windows.UI.Xaml.Controls
 				this.Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, async () =>
 				{
 					await Task.Delay(100);
-					((DatePickerSelector)Content).Date = Date;
+					((DatePickerSelector)Content).Date = selectedDate;
 				});
 			}
 		}
