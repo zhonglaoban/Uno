@@ -75,21 +75,6 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid90'">
-		<PackageReference Include="Xamarin.Android.Support.v4">
-			<Version>27.0.2.1</Version>
-			<PrivateAssets>none</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
-			<Version>27.0.2.1</Version>
-			<PrivateAssets>none</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Android.Support.Fragment">
-			<Version>27.0.2.1</Version>
-			<PrivateAssets>none</PrivateAssets>
-		</PackageReference>
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)'=='MonoAndroid' or '$(TargetFrameworkIdentifier)'=='Xamarin.iOS' or '$(TargetFramework)'=='xamarinmac20'">
 		<Reference Include="System.Numerics" />
 		<Reference Include="System.Numerics.Vectors" />
