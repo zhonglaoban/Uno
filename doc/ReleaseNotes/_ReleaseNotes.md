@@ -37,6 +37,7 @@
  * Ensure the SplitView templated parent is propagated properly for FindName
  * Fix infinite loop when parsing empty Attached Properties on macOS
  * 103116 [iOS] Navigating to a _second_ local html file with `WebView` doesn't work.
+ * Improve the Uno.UI solution memory consumption for Android targets
 
 ## Release 1.41
 
