@@ -37,12 +37,23 @@ namespace Windows.UI.Xaml.Controls
 		/// </remarks>
 		private bool UseLayoutManager =>
 			HasHyperlink ||
-			CanWrap && CanTrim ||
+			CanWrap && CanTrim && LineCount > 1 ||
 			CanWrap && MaxLines != 0;
 
 		private bool CanWrap => TextWrapping != TextWrapping.NoWrap && MaxLines != 1;
 
 		private bool CanTrim => TextTrimming != TextTrimming.None;
+
+		private int LineCount
+		{
+			get
+			{
+				var textSize = new CGSize(this.Frame.Size.Width, float.MaxValue);
+				var requireSizeHeight = Math.Ceiling(this.SizeThatFits(textSize).Height);
+				var charSize = this.FontSize;
+				return (int)Math.Round(requireSizeHeight / charSize);
+			}
+		}
 
 		private void InitializePartial()
 		{
