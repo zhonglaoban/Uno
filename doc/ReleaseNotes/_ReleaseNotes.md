@@ -15,7 +15,8 @@
 * Add `BitmapIcon.ShowAsMonochrome` support
 * Add support for `Windows.Foundation.UniversalApiContract` in `IsApiContractPresent`
 * Add support for ContentProperty on UserControl
-* Add DelegateCommand<T>
+* Add `DelegateCommand<T>`
+* #131258 Added support for _RoutedEvents_. See [routed-events.md documentation](../articles/routed-events.md).
 * [WASM] #234 Support virtualization in ListView
 
 ### Breaking changes
@@ -74,5 +75,5 @@
  * 135202, 131884 [Android] Content occasionally fails to show because binding throws an exception
  * 135646 [Android] Binding MediaPlayerElement.Source causes video to go blank
  * 136093, 136172 [iOS] ComboBox does not display its Popup
- * 134819, 134828 [iOS] Ensures the back gesture is enabled and disabled properly when the CommandBar is visible, collapsed, visible with a navigation command and collapsed with a navigation command. 
+ * 134819, 134828 [iOS] Ensures the back gesture is enabled and disabled properly when the CommandBar is visible, collapsed, visible with a navigation command and collapsed with a navigation command.
  * 137081 Xaml generator doesn't support setting a style on the root control
