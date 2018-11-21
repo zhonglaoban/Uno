@@ -48,6 +48,8 @@
  * 134573 CommandBar doesn't take the proper space on iOS phones in landscape
  * #26 The explicit property <Style.Setters> does not intialize style setters properly
  * 138099, 138463 [Android] fixed `ListView` scrolls up when tapping an item at the bottom of screen
+ * 104057 [Android] ListView shows overscroll effect even when it doesn't need to scroll
+ * #376 iOS project compilation fails: Can't resolve the reference 'System.Void Windows.UI.Xaml.Documents.BlockCollection::Add(Windows.UI.Xaml.Documents.Block)
 
 ## Release 1.41
 
