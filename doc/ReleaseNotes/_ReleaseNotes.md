@@ -47,6 +47,7 @@
  * Now supports internal object in desource dictionaries
  * 134573 CommandBar doesn't take the proper space on iOS phones in landscape
  * #26 The explicit property <Style.Setters> does not intialize style setters properly
+ * 138099, 138463 [Android] fixed `ListView` scrolls up when tapping an item at the bottom of screen
 
 ## Release 1.41
 
